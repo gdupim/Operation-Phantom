@@ -14,7 +14,6 @@ import Entidades.Player;
  * @author caiom
  */
 public class Janela extends JPanel implements Runnable {
-<<<<<<< HEAD
 
     // Posição padrão do player
     int playerX = 100;
@@ -25,9 +24,6 @@ public class Janela extends JPanel implements Runnable {
     int FPS = 60;
 
     // Tamanho e escala do tile 
-=======
-    // config da janela
->>>>>>> b371657a3c5c7d6d24e14af97447d7917d188aa6
     final int originalTileSize = 32; // 32 x 32
     final int scale = 2; // 2x32 = 64
 
@@ -38,20 +34,11 @@ public class Janela extends JPanel implements Runnable {
     public final int screenWidth = (int) screenSize.getWidth();
     public final int screenHeight = (int) screenSize.getHeight();
 
-<<<<<<< HEAD
     TileManager tm = new TileManager(this); // TileManager
     KeyHandler keyH = new KeyHandler(); // KeyHandler
-
+    Player player = new Player(this, keyH);
     Thread gameThread; // Thread
     
-=======
-    // FPS
-    int FPS = 60;
-    Thread gameThread;
-    KeyHandler keyH = new KeyHandler();
-    Player player = new Player(this, keyH);
-
->>>>>>> b371657a3c5c7d6d24e14af97447d7917d188aa6
     // construtor
     public Janela() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -65,7 +52,6 @@ public class Janela extends JPanel implements Runnable {
 
     }
 
-<<<<<<< HEAD
 
     @Override
     public void run(){
@@ -134,6 +120,8 @@ public class Janela extends JPanel implements Runnable {
 
         tm.draw(g2d);
         
+        player.draw(g2d);
+        
         g2d.setColor(Color.WHITE);
 
         g2d.fillRect(playerX,playerY, tileSize, tileSize);
@@ -141,56 +129,12 @@ public class Janela extends JPanel implements Runnable {
         g2d.dispose();
     }
 
-=======
->>>>>>> b371657a3c5c7d6d24e14af97447d7917d188aa6
     public void iniciarGameThread() {
         if (gameThread == null) {
             gameThread = new Thread(this);
             gameThread.start();
         }
     }
-
-    @Override
-    public void run(){
-        double drawInterval = 1000000000 / FPS; // 0.01666 seconds
-        double nextDrawTime = System.nanoTime() + drawInterval;
-
-        while(gameThread != null){
-            update();
-
-            repaint();
-
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime();
-                remainingTime = remainingTime/1000000; // convertendo para milisegundos
-
-                if(remainingTime < 0){
-                    remainingTime = 0; // Garante que o tempo restante não seja negativo
-                }
-
-                Thread.sleep((long) remainingTime);
-
-                nextDrawTime += drawInterval;
-
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void update(){
-        player.update();
-    }
-
-    @Override
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-
-        Graphics2D g2 = (Graphics2D) g;
-
-        player.draw(g2);
-
-        g2.dispose();
-    }
 }
+
+
