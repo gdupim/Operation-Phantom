@@ -22,6 +22,7 @@ public class OpPhantom {
         //frame.setUndecorated(true); // Remove bordas da janela
         frame.setVisible(true);
 
+        janela.iniciarGameThread();
         
     }
 }
