@@ -34,7 +34,7 @@ public class Janela extends JPanel implements Runnable {
 
     TileManager tm = new TileManager(this);
     Thread gameThread;
-    CollisionChecker cChecker = new CollisionChecker(this);
+    public CollisionChecker cChecker = new CollisionChecker(this);
     KeyHandler keyH = new KeyHandler();
     Player player = new Player(this, keyH);
     
