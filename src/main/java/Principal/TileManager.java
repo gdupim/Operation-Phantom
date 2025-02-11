@@ -3,17 +3,13 @@ package Principal;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.InputStream;
-
 import javax.imageio.ImageIO;
 
-/**
- *
- * @author caiom
- */
+
 public class TileManager {
-    Tiles tile[];
+    public Tiles tile[];
     Janela j;
-    int mapTileNum[][];
+    public int mapTileNum[][];
 
     public TileManager(Janela j) {
         this.j = j;
