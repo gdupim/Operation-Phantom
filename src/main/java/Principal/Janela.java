@@ -19,11 +19,11 @@ public class Janela extends JPanel implements Runnable {
     int playerX = 100;
     int playerY = 100;
     int playerSpeed = 5;
-    
+
     // FPS
     int FPS = 60;
 
-    // Tamanho e escala do tile 
+    // Tamanho e escala do tile
     final int originalTileSize = 32; // 32 x 32
     final int scale = 2; // 2x32 = 64
 
@@ -38,7 +38,7 @@ public class Janela extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler(); // KeyHandler
     Player player = new Player(this, keyH);
     Thread gameThread; // Thread
-    
+
     // construtor
     public Janela() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -49,9 +49,7 @@ public class Janela extends JPanel implements Runnable {
         this.requestFocus();
         this.addKeyListener(keyH);
         this.setFocusable(true);
-
     }
-
 
     @Override
     public void run(){
@@ -62,23 +60,22 @@ public class Janela extends JPanel implements Runnable {
         long timer = 0;
         int drawCount = 0;
 
-        while(gameThread != null){  
-
+        while(gameThread != null){
             currentTime = System.nanoTime();
             drawCount++;
             timer += currentTime-lastTime;
             lastTime = currentTime;
-            
+
             try {
                 double remainingTime = nextDrawTime - System.nanoTime();
                 remainingTime = remainingTime/1000000;
-                
+
                 if(remainingTime < 0){
                     remainingTime = 0;
                 }
-                
+
                 Thread.sleep((long) remainingTime);
-                
+
                 nextDrawTime += drawInterval;
                 if(timer >= 1000000000){
                     System.out.println("FPS: " + drawCount);
@@ -87,9 +84,9 @@ public class Janela extends JPanel implements Runnable {
                 }
 
                 update();
-    
+
                 repaint();
-                
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -97,7 +94,6 @@ public class Janela extends JPanel implements Runnable {
     }
 
     public void update(){
-
         if(keyH.upPressed){
             playerY -= playerSpeed;
         }
@@ -113,19 +109,18 @@ public class Janela extends JPanel implements Runnable {
     }
 
     public void paintComponent(Graphics g){
-
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
 
         tm.draw(g2d);
-        
+
         player.draw(g2d);
-        
+
         g2d.setColor(Color.WHITE);
 
         g2d.fillRect(playerX,playerY, tileSize, tileSize);
-        
+
         g2d.dispose();
     }
 

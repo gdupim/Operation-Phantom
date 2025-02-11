@@ -22,7 +22,5 @@ public class OpPhantom {
         //frame.setUndecorated(true); // Remove bordas da janela
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
-        
     }
 }
