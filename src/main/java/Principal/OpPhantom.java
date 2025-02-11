@@ -16,7 +16,6 @@ public class OpPhantom {
 
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         //frame.setUndecorated(true); // Remove bordas da janela
-        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
         janela.iniciarGameThread();

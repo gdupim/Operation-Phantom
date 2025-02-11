@@ -1,6 +1,7 @@
 package Entidades;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -9,14 +10,10 @@ import javax.imageio.ImageIO;
 import Principal.Janela;
 import Principal.KeyHandler;
 
-/**
- *
- * @author caiom
- */
 public class Player extends Entidade{
     Janela j;
-    KeyHandler keyH;
-
+    KeyHandler keyH = new KeyHandler();
+    
     public final int screenX;
     public final int screenY;
     
@@ -31,6 +28,8 @@ public class Player extends Entidade{
         this.keyH = keyH;
         screenX = j.screenWidth/2;
         screenY = j.screenHeight/2;
+
+        solidArea = new Rectangle(0, 0, 64, 64);
 
         setDefaultValues();
     }
@@ -115,4 +114,5 @@ public class Player extends Entidade{
 
         g2.drawImage(img, x, y, j.tileSize, j.tileSize, null);
     }
+
 }

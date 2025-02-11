@@ -15,31 +15,32 @@ import Entidades.Player;
  */
 public class Janela extends JPanel implements Runnable {
     
+    KeyHandler keyH = new KeyHandler();
+    Player player = new Player(this, keyH);
+    
     // FPS
     int FPS = 60;
 
     // Tamanho e escala do tile 
     final int originalTileSize = 32; // 32 x 32
     final int scale = 2; // 2x32 = 64
-
     public final int tileSize = originalTileSize * scale; // 64x64
+    TileManager tm = new TileManager(this);
 
     // Obtendo a resolução da tela automaticamente
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     public final int screenWidth = (int) screenSize.getWidth();
     public final int screenHeight = (int) screenSize.getHeight();
 
-    TileManager tm = new TileManager(this); // TileManager
-    KeyHandler keyH = new KeyHandler(); // KeyHandler
-    Player player = new Player(this, keyH);
-    Thread gameThread; // Thread
+    Thread gameThread;
+    CollisionChecker cChecker = new CollisionChecker(this);
     
     // construtor
     public Janela() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.GREEN);
+        this.setBackground(Color.GREEN);
         this.setDoubleBuffered(true);
-        this.addKeyListener(keyH);
         this.setFocusable(true);
         this.requestFocus();
         this.addKeyListener(keyH);
@@ -56,6 +57,7 @@ public class Janela extends JPanel implements Runnable {
         long currentTime;
         long timer = 0;
         int drawCount = 0;
+        
 
         while(gameThread != null){  
 
@@ -116,6 +118,6 @@ public class Janela extends JPanel implements Runnable {
             gameThread.start();
         }
     }
+
+
 }
-
-
