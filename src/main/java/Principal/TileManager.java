@@ -87,7 +87,12 @@ public class TileManager {
             int screenX = worldX - j.player.worldX + j.player.screenX;
             int screenY = worldY - j.player.worldY + j.player.screenY;
 
-            g2.drawImage(tile[tileNum].image, screenX, screenY,j.tileSize, j.tileSize, null);
+            if(worldX + j.tileSize > j.player.worldX - j.player.screenX && 
+                worldX - j.tileSize < j.player.worldX + j.player.screenX && 
+                worldY + j.tileSize > j.player.worldY - j.player.screenY && 
+                worldY - j.tileSize< j.player.worldY + j.player.screenY)
+                g2.drawImage(tile[tileNum].image, screenX, screenY,j.tileSize, j.tileSize, null);
+
             worldCol++;
 
 

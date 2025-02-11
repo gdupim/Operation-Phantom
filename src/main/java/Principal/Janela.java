@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import Entidades.Player;
+import Itens.Item;
 
 public class Janela extends JPanel implements Runnable {
     // CONFIG TELA
@@ -34,9 +35,11 @@ public class Janela extends JPanel implements Runnable {
 
     TileManager tm = new TileManager(this);
     Thread gameThread;
-    CollisionChecker cChecker = new CollisionChecker(this);
-    KeyHandler keyH = new KeyHandler();
-    Player player = new Player(this, keyH);
+    public CollisionChecker cChecker = new CollisionChecker(this);
+    public AssetSetter aSetter = new AssetSetter(this);
+    public KeyHandler keyH = new KeyHandler();
+    public Player player = new Player(this, keyH);
+    public Item item[] = new Item[10];
     
     // construtor
     public Janela() {
@@ -50,7 +53,9 @@ public class Janela extends JPanel implements Runnable {
 
     }
 
-
+    public void setupGame(){
+        aSetter.setItem();
+    }
     @Override
     public void run(){
 
@@ -100,9 +105,17 @@ public class Janela extends JPanel implements Runnable {
 
         Graphics2D g2d = (Graphics2D) g;
         
-        
+        // TILE
         tm.draw(g2d);
         
+        // ITEM
+        for(int i = 0; i < item.length; i++){
+            if(item[i] != null){
+                item[i].draw(g2d, this);
+            }
+        }
+
+        // PLAYER
         player.draw(g2d);
         
         g2d.dispose();

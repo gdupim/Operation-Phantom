@@ -4,10 +4,10 @@ import Entidades.Entidade;
 
 public class CollisionChecker {
 
-    Janela gp;
+    Janela j;
 
-    public CollisionChecker(Janela gp) {
-        this.gp = gp;
+    public CollisionChecker(Janela j) {
+        this.j = j;
     }
 
     public void checkTile(Entidade Entidades) {
