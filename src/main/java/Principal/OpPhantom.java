@@ -2,10 +2,6 @@ package Principal;
 
 import javax.swing.JFrame;
 
-/**
- *
- * @author caiom
- */
 public class OpPhantom {
     public static void main(String[] args) throws  Exception{
         JFrame frame = new JFrame();
@@ -23,6 +19,7 @@ public class OpPhantom {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+        janela.iniciarGameThread();
         
     }
 }

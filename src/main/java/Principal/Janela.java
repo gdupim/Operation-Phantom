@@ -14,11 +14,6 @@ import Entidades.Player;
  * @author caiom
  */
 public class Janela extends JPanel implements Runnable {
-
-    // Posição padrão do player
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 5;
     
     // FPS
     int FPS = 60;
@@ -42,7 +37,7 @@ public class Janela extends JPanel implements Runnable {
     // construtor
     public Janela() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.BLACK);
+        this.setBackground(Color.GREEN);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
@@ -98,20 +93,10 @@ public class Janela extends JPanel implements Runnable {
 
     public void update(){
 
-        if(keyH.upPressed){
-            playerY -= playerSpeed;
-        }
-        if(keyH.downPressed){
-            playerY += playerSpeed;
-        }
-        if(keyH.leftPressed){
-            playerX -= playerSpeed;
-        }
-        if(keyH.rightPressed){
-            playerX += playerSpeed;
-        }
+        player.update();
     }
 
+    @Override
     public void paintComponent(Graphics g){
 
         super.paintComponent(g);
@@ -121,10 +106,6 @@ public class Janela extends JPanel implements Runnable {
         tm.draw(g2d);
         
         player.draw(g2d);
-        
-        g2d.setColor(Color.WHITE);
-
-        g2d.fillRect(playerX,playerY, tileSize, tileSize);
         
         g2d.dispose();
     }

@@ -19,7 +19,13 @@ public class Player extends Entidade{
 
     public final int screenX;
     public final int screenY;
-
+    
+    public void setDefaultValues(){
+        x = 100;
+        y = 100;
+        speed = 4;
+        direction = "down";
+    }
     public Player(Janela j, KeyHandler keyH) {
         this.j = j;
         this.keyH = keyH;
@@ -29,12 +35,6 @@ public class Player extends Entidade{
         setDefaultValues();
     }
 
-    public void setDefaultValues(){
-        x = 100;
-        y = 100;
-        speed = 4;
-        direction = "down";
-    }
 
     public void getPlayerImage(){
         try {
@@ -52,7 +52,24 @@ public class Player extends Entidade{
     }
 
     public void update(){
-
+        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true){
+            if(keyH.upPressed){
+                y -= speed;
+                direction = "up";
+            }
+            if(keyH.downPressed){
+                y += speed;
+                direction = "down";
+            }
+            if(keyH.leftPressed){
+                x -= speed;
+                direction = "left";
+            }
+            if(keyH.rightPressed){
+                x += speed;
+                direction = "right";
+            }
+        }
         spriteCounter++;
         if (spriteCounter > 10) {
             if(spriteNum == 1){
@@ -63,36 +80,37 @@ public class Player extends Entidade{
             }
             spriteCounter = 0;
         }
+    
     }
 
     public void draw(Graphics2D g2){
         BufferedImage img = null;
-
+        
         switch(direction){
-            case "up":
+            case "up" -> {
                 if(spriteCounter == 1)
                     img = up1;
                 if(spriteCounter == 2)
                     img = up2;
-                break;
-            case "down":
+            }
+            case "down" -> {
                 if(spriteCounter == 1)
                     img = down1;
                 if(spriteCounter == 2)
                     img = down2;
-                break;
-            case "left":
+            }
+            case "left" -> {
                 if(spriteCounter == 1)
                     img = left1;
                 if(spriteCounter == 2)
                     img = left2;
-                break;
-            case "right":
+            }
+            case "right" -> {
                 if(spriteCounter == 1)
                     img = right1;
                 if(spriteCounter == 2)
                     img = right2;
-                break;
+            }
         }
 
         g2.drawImage(img, x, y, j.tileSize, j.tileSize, null);

@@ -2,8 +2,6 @@ package Principal;
 
 import java.awt.Graphics2D;
 
-import javax.imageio.ImageIO;
-
 /**
  *
  * @author caiom
@@ -24,7 +22,7 @@ public class TileManager {
         try {
             
             tile[0] = new Tiles();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/Sprites/raiden.png"));
+            
 
 
         } catch (Exception e) {
