@@ -14,7 +14,7 @@ public class OpPhantom {
 
         frame.pack();
 
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         //frame.setUndecorated(true); // Remove bordas da janela
         frame.setVisible(true);
 

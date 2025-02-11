@@ -18,57 +18,63 @@ public class Player extends Entidade{
     public final int screenY;
     
     public void setDefaultValues(){
-        x = 100;
-        y = 100;
+        worldX = j.tileSize*23;
+        worldY = j.tileSize*13;
         speed = 4;
         direction = "down";
     }
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public Player(Janela j, KeyHandler keyH) {
         this.j = j;
         this.keyH = keyH;
-        screenX = j.screenWidth/2;
-        screenY = j.screenHeight/2;
+
+        screenX = j.screenWidth/2 - j.tileSize/2;
+        screenY = j.screenHeight/2 - j.tileSize/2;
 
         solidArea = new Rectangle(0, 0, 64, 64);
 
         setDefaultValues();
+        getPlayerImage();
     }
 
 
     public void getPlayerImage(){
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/Player/snake/snake_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/Player/snake/snake_up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/Player/snake/snake_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/Player/snake/snake_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/Player/snake/snake_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/Player/snake/snake_left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/Player/snake/snake_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/Player/snake/snake_right_2.png"));
+            up1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/snake_up_1.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/snake_up_2.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/snake_down_1.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/snake_down_2.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/snake_left_1.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/snake_left_2.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/snake_right_1.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/snake_right_2.png"));
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
     public void update(){
+        
         if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true){
-            if(keyH.upPressed){
-                y -= speed;
+
+            if(keyH.upPressed == true){
+                worldY -= speed;
                 direction = "up";
             }
-            if(keyH.downPressed){
-                y += speed;
+            else if(keyH.downPressed == true){
+                worldY += speed;
                 direction = "down";
             }
-            if(keyH.leftPressed){
-                x -= speed;
+            else if(keyH.leftPressed == true){
+                worldX -= speed;
                 direction = "left";
             }
-            if(keyH.rightPressed){
-                x += speed;
+            else if(keyH.rightPressed == true){
+                worldX += speed;
                 direction = "right";
             }
-        }
+
+        
+
         spriteCounter++;
         if (spriteCounter > 10) {
             if(spriteNum == 1){
@@ -79,40 +85,40 @@ public class Player extends Entidade{
             }
             spriteCounter = 0;
         }
-    
+        }
     }
 
     public void draw(Graphics2D g2){
         BufferedImage img = null;
         
         switch(direction){
-            case "up" -> {
-                if(spriteCounter == 1)
+            case "up": 
+                if(spriteNum == 1)
                     img = up1;
-                if(spriteCounter == 2)
+                if(spriteNum == 2)
                     img = up2;
-            }
-            case "down" -> {
-                if(spriteCounter == 1)
+                break;
+            case "down":
+                if(spriteNum == 1)
                     img = down1;
-                if(spriteCounter == 2)
+                if(spriteNum == 2)
                     img = down2;
-            }
-            case "left" -> {
-                if(spriteCounter == 1)
+                break;
+            case "left":
+                if(spriteNum == 1)
                     img = left1;
-                if(spriteCounter == 2)
+                if(spriteNum == 2)
                     img = left2;
-            }
-            case "right" -> {
-                if(spriteCounter == 1)
+                break;
+            case "right":
+                if(spriteNum == 1)
                     img = right1;
-                if(spriteCounter == 2)
+                if(spriteNum == 2)
                     img = right2;
-            }
+                break;
         }
 
-        g2.drawImage(img, x, y, j.tileSize, j.tileSize, null);
+        g2.drawImage(img, screenX, screenY, j.tileSize, j.tileSize, null);
     }
 
 }
