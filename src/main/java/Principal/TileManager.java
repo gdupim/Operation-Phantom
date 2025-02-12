@@ -3,6 +3,7 @@ package Principal;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.InputStream;
+
 import javax.imageio.ImageIO;
 
 public class TileManager {
@@ -17,7 +18,7 @@ public class TileManager {
         mapTileNum = new int[j.maxWorldRow][j.maxWorldCol];
 
         getTileImage();
-        loadMap("/Mapas/map_grid.txt");
+        loadMap("/Mapas/grid_map.txt");
     }
 
     public void getTileImage() {
@@ -56,7 +57,6 @@ public class TileManager {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

@@ -17,6 +17,7 @@ public class Audio {
         soundURL[3] = getClass().getResource("/Audio/sons/personagens/passo2.wav");
         soundURL[4] = getClass().getResource("/Audio/sons/personagens/passo3.wav");
         soundURL[5] = getClass().getResource("/Audio/sons/personagens/passo4.wav");
+        soundURL[6] = getClass().getResource("/Audio/msc/ambient.wav");
     }
 
     // inciar o arquivo de audio
