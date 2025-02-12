@@ -10,6 +10,10 @@ import javax.imageio.ImageIO;
 import Principal.Janela;
 import Principal.KeyHandler;
 
+/**
+ *
+ * @author caiom
+ */
 public class Player extends Entidade {
     Janela j;
     KeyHandler keyH = new KeyHandler();
@@ -17,6 +21,8 @@ public class Player extends Entidade {
     public final int screenX;
     public final int screenY;
     public int hasPeDeCabra = 0;
+    public int worldX, x;
+    public int worldY, y;
 
     public void setDefaultValues() {
         worldX = j.tileSize * 23;
@@ -37,7 +43,6 @@ public class Player extends Entidade {
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         setDefaultValues();
-        getPlayerImage();
     }
 
     public void getPlayerImage() {
@@ -154,6 +159,6 @@ public class Player extends Entidade {
                 break;
         }
 
-        g2.drawImage(img, screenX, screenY, j.tileSize, j.tileSize, null);
+        g2.drawImage(img, x, y, j.tileSize, j.tileSize, null);
     }
 }
