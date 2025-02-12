@@ -49,11 +49,11 @@ public class Player extends Entidade {
             right1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/mov/snake_right_1.png"));
             right2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/mov/snake_right_2.png"));
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     public void update() {
-
         if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true
                 || keyH.rightPressed == true) {
 
@@ -73,7 +73,6 @@ public class Player extends Entidade {
 
             // SE A COLISÃO ESTIVER DESLIGADA O PLAYER NÃO SE MOVE
             if (collisionOn == false) {
-
                 switch (direction) {
                     case "up":
                         worldY -= speed;

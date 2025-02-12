@@ -27,14 +27,19 @@ public class Janela extends JPanel implements Runnable {
     // CONFIG MUNDO
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    public final int worldWidth = tileSize * maxWorldCol;
-    public final int worldHeight = tileSize * maxWorldRow;
+    // n sera usado:
+    // public final int worldWidth = tileSize * maxWorldCol;
+    // public final int worldHeight = tileSize * maxWorldRow;
 
+    // base do jogo
     TileManager tm = new TileManager(this);
-    Thread gameThread;
+    Audio audio = new Audio();
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public KeyHandler keyH = new KeyHandler();
+    Thread gameThread;
+
+    // ENTIDADE E OBJETO
     public Player player = new Player(this, keyH);
     public Item item[] = new Item[10];
 
@@ -50,6 +55,8 @@ public class Janela extends JPanel implements Runnable {
 
     public void setupGame() {
         aSetter.setItem();
+
+        iniciarMsc(0);
     }
 
     @Override
@@ -110,6 +117,17 @@ public class Janela extends JPanel implements Runnable {
         player.draw(g2d);
 
         g2d.dispose();
+    }
+
+    public void iniciarMsc(int i) {
+        audio.setFile(i);
+        audio.play();
+        audio.loop();
+    }
+
+    public void playSE(int i) {
+        audio.setFile(i);
+        audio.play();
     }
 
     public void iniciarGameThread() {

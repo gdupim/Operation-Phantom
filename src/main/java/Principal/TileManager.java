@@ -56,7 +56,7 @@ public class TileManager {
             }
 
         } catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
     }
 
@@ -83,7 +83,6 @@ public class TileManager {
             if (worldCol == j.maxWorldCol) {
                 worldCol = 0;
                 worldRow++;
-
             }
         }
     }
