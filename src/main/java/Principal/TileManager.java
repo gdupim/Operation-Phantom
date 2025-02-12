@@ -2,9 +2,12 @@ package Principal;
 
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
+
+
 
 public class TileManager {
     public Tiles tile[];
@@ -22,12 +25,26 @@ public class TileManager {
     }
 
     public void getTileImage() {
-        try {
-            tile[0] = new Tiles();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/Sprites/grama_grid.png"));
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        setup(0, "grama_grid", false);
+
+    }
+
+    public void setup(int index, String imageName, boolean collision) {
+
+        UtilityTool uTool = new UtilityTool();
+
+        try 
+        {
+            tile[index] = new Tiles();
+            tile[index].image = ImageIO.read(getClass().getResourceAsStream("/Principal/tilesSrc/"+imageName + ".png"));
+            tile[index].image = uTool.scaleImage(tile[index].image, j.tileSize, j.tileSize);
+            tile[index].collision = collision;
+
+        } catch (IOException e) {
+            System.err.println("Error loading tile image: " + e.getMessage());
         }
+
     }
 
     public void loadMap(String path) {
@@ -38,13 +55,18 @@ public class TileManager {
             int col = 0;
             int row = 0;
 
+            int num = 0;
             while (col < j.maxWorldCol && row < j.maxWorldRow) {
                 String line = br.readLine();
 
                 while (col < j.maxWorldCol) {
                     String numbers[] = line.split(" ");
-
-                    int num = Integer.parseInt(numbers[col]);
+                    if (col < numbers.length) {
+                        num = Integer.parseInt(numbers[col]);
+                        mapTileNum[row][col] = num;
+                    } else {
+                        System.err.println("Error: Not enough numbers in line for column " + col);
+                    }
 
                     mapTileNum[row][col] = num;
                     col++;
@@ -53,10 +75,11 @@ public class TileManager {
                     col = 0;
                     row++;
                 }
-                br.close();
             }
+            br.close();
 
-        } catch (Exception e) {
+        } catch (IOException | NumberFormatException e) {
+            System.err.println("Error loading map: " + e.getMessage());
         }
     }
 
@@ -76,7 +99,7 @@ public class TileManager {
                     worldX - j.tileSize < j.player.worldX + j.player.screenX &&
                     worldY + j.tileSize > j.player.worldY - j.player.screenY &&
                     worldY - j.tileSize < j.player.worldY + j.player.screenY)
-                g2.drawImage(tile[tileNum].image, screenX, screenY, j.tileSize, j.tileSize, null);
+                g2.drawImage(tile[tileNum].image, screenX, screenY, null);
 
             worldCol++;
 

@@ -3,6 +3,7 @@ package Principal;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+
 /**
  *
  * @author caiom
@@ -10,6 +11,12 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     public boolean upPressed, downPressed, leftPressed, rightPressed, escPressed, ePressed;
+    Janela j;
+
+
+    public KeyHandler(Janela j){
+        this.j = j;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -37,6 +44,14 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_E) {
             ePressed = true;
         }
+        if (code == KeyEvent.VK_ESCAPE) {
+            if(j.gameState == j.playState){
+                j.gameState = j.pauseState; 
+            }
+            else if(j.gameState == j.pauseState){
+                j.gameState = j.playState;
+            }
+        }
     }
 
     @Override
@@ -62,5 +77,6 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_E) {
             ePressed = false;
         }
+        
     }
 }
