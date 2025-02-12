@@ -3,7 +3,6 @@ package Principal;
 import Entidades.Entidade;
 
 public class CollisionChecker {
-
     Janela gp;
 
     public CollisionChecker(Janela gp) {
@@ -14,4 +13,3 @@ public class CollisionChecker {
 
     }
 }
-

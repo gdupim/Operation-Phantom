@@ -1,5 +1,5 @@
 package Itens;
 
-public class Ferramenta extends Item{
-    
+public class Ferramenta extends Item {
+
 }

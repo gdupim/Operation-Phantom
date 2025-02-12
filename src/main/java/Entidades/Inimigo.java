@@ -1,5 +1,5 @@
 package Entidades;
 
-public class Inimigo extends Entidade{
-    
+public class Inimigo extends Entidade {
+
 }
