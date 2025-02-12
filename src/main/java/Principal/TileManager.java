@@ -14,7 +14,7 @@ public class TileManager {
     public TileManager(Janela j) {
         this.j = j;
 
-        tile = new Tiles[10];
+        tile = new Tiles[30];
         mapTileNum = new int[j.maxWorldRow][j.maxWorldCol];
 
         getTileImage();
@@ -24,7 +24,37 @@ public class TileManager {
     public void getTileImage() {
         try {
             tile[0] = new Tiles();
+
+            // imagem teste
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/Sprites/grama_grid.png"));
+
+            // // tiles de chao
+            // tile[1].image =
+            // ImageIO.read(getClass().getResourceAsStream("/Sprites/tiles/chao/tile_asfalto.png"));
+            // tile[2].image =
+            // ImageIO.read(getClass().getResourceAsStream("/Sprites/tiles/chao/tile_azulejo.png"));
+            // tile[3].image =
+            // ImageIO.read(getClass().getResourceAsStream("/Sprites/tiles/chao/tile_chao_metal.png"));
+
+            // // tiles parede
+            // tile[4].image = ImageIO
+            // .read(getClass().getResourceAsStream("/Sprites/tiles/paredes/metal/tile_canto_inf_dir.png"));
+            // tile[5].image = ImageIO
+            // .read(getClass().getResourceAsStream("/Sprites/tiles/paredes/metal/tile_canto_inf_esq.png"));
+            // tile[6].image = ImageIO
+            // .read(getClass().getResourceAsStream("/Sprites/tiles/paredes/metal/tile_canto_sup_dir.png"));
+            // tile[7].image = ImageIO
+            // .read(getClass().getResourceAsStream("/Sprites/tiles/paredes/metal/tile_canto_sup_esq.png"));
+            // tile[8].image = ImageIO
+            // .read(getClass().getResourceAsStream("/Sprites/tiles/paredes/metal/tile_lateral.png"));
+            // tile[9].image = ImageIO
+            // .read(getClass().getResourceAsStream("/Sprites/tiles/paredes/metal/tile_vertical.png"));
+
+            // // tiles misc
+            // tile[10].image =
+            // ImageIO.read(getClass().getResourceAsStream("/Sprites/tiles/misc/tile_box.png"));
+            // tile[11].image =
+            // ImageIO.read(getClass().getResourceAsStream("/Sprites/tiles/misc/tile_box2.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,9 +83,9 @@ public class TileManager {
                     col = 0;
                     row++;
                 }
-                br.close();
             }
 
+            br.close();
         } catch (Exception e) {
         }
     }
