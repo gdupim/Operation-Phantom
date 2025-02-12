@@ -65,4 +65,80 @@ public class CollisionChecker {
                 break;
         }
     }
+    public int checkItem(Entidade entidade, boolean player){
+
+        int index = 999;
+
+        for (int i = 0; i < j.item.length; i++){
+
+            if(j.item[i] != null){
+
+                // area solida entidade
+                entidade.solidArea.x = entidade.worldX + entidade.solidAreaDefaultX;
+                entidade.solidArea.y = entidade.worldY + entidade.solidAreaDefaultY;
+                // area solida item
+                j.item[i].solidArea.x = j.item[i].worldX + j.item[i].solidAreaDefaultX;
+                j.item[i].solidArea.y = j.item[i].worldY + j.item[i].solidAreaDefaultY;
+
+                switch(entidade.direction){
+                    case "up":
+                        entidade.solidArea.y -= entidade.speed;
+                        if(entidade.solidArea.intersects(j.item[i].solidArea)){
+                            if(j.item[i].collision == true){
+                                entidade.collisionOn = true;
+                            }
+                            if(player == true){
+                            
+                                index = i;
+                            
+                            }
+                        }
+                        break;
+                    case "down":
+                        entidade.solidArea.y += entidade.speed;
+                        if(entidade.solidArea.intersects(j.item[i].solidArea)){
+                            if(j.item[i].collision == true){
+                                entidade.collisionOn = true;
+                            }
+                            if(player == true){
+                                index = i;
+                            
+                            }
+                        }
+                        break;
+                    case "left":
+                        entidade.solidArea.x -= entidade.speed;
+                        if(entidade.solidArea.intersects(j.item[i].solidArea)){
+                            if(j.item[i].collision == true){
+                                entidade.collisionOn = true;
+                            }
+                            if(player == true){
+                                index = i;
+                            
+                        }
+                    }
+                        break;
+                    case "right":
+                        entidade.solidArea.x += entidade.speed;
+                        if(entidade.solidArea.intersects(j.item[i].solidArea)){
+                            if(j.item[i].collision == true){
+                                entidade.collisionOn = true;
+                            }
+                            if(player == true){
+                            
+                                index = i;
+                            
+                            }
+                        }
+                        break;
+                }
+                entidade.solidArea.x = entidade.solidAreaDefaultX;
+                entidade.solidArea.y = entidade.solidAreaDefaultY;
+                j.item[i].solidArea.x = j.item[i].solidAreaDefaultX;
+                j.item[i].solidArea.y = j.item[i].solidAreaDefaultY;
+            }
+        }
+
+        return index;
+    }
 }

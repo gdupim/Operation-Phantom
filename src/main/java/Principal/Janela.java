@@ -11,7 +11,7 @@ import Entidades.Player;
 import Itens.Item;
 
 public class Janela extends JPanel implements Runnable {
-    // CONFIG TELA
+    // CONFIG TELA DE TAMANHO 1024x576
     final int originalTileSize = 32; // 32 x 32
     final int scale = 2; // 2x32 = 64
 
@@ -41,6 +41,7 @@ public class Janela extends JPanel implements Runnable {
 
     // ENTIDADE E OBJETO
     public Player player = new Player(this, keyH);
+    public UI ui = new UI(this);
     public Item item[] = new Item[10];
 
     // construtor
@@ -115,6 +116,8 @@ public class Janela extends JPanel implements Runnable {
 
         // PLAYER
         player.draw(g2d);
+
+        ui.draw(g2d);
 
         g2d.dispose();
     }

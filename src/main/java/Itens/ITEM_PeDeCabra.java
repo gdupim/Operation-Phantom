@@ -13,5 +13,6 @@ public class ITEM_PeDeCabra extends Ferramenta {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        collision = false;
     }
 }

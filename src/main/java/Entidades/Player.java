@@ -16,6 +16,7 @@ public class Player extends Entidade {
 
     public final int screenX;
     public final int screenY;
+    public int hasPeDeCabra = 0;
 
     public void setDefaultValues() {
         worldX = j.tileSize * 23;
@@ -33,7 +34,8 @@ public class Player extends Entidade {
         screenY = j.screenHeight / 2 - j.tileSize / 2;
 
         solidArea = new Rectangle(7, 10, 16, 8);
-
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
         setDefaultValues();
         getPlayerImage();
     }
@@ -97,6 +99,27 @@ public class Player extends Entidade {
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
+            }
+        }
+        if (keyH.ePressed) {
+            int itemIndex = j.cChecker.checkItem(this, true);
+            pickUpItem(itemIndex);
+            keyH.ePressed = false;
+        }
+    }
+
+    public void pickUpItem(int i) {
+        if (i != 999) {
+
+            switch (j.item[i].nome) {
+                case "Pe de Cabra":
+                    j.item[i] = null;
+                    hasPeDeCabra++;
+                    j.ui.showMessage("Pe de Cabra Adquirido!");
+                    if (hasPeDeCabra == 2) {
+                        j.ui.gameFinished = true;
+                    }
+                    break;
             }
         }
     }
