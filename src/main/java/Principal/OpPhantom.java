@@ -3,7 +3,7 @@ package Principal;
 import javax.swing.JFrame;
 
 public class OpPhantom {
-    public static void main(String[] args) throws  Exception{
+    public static void main(String[] args) throws Exception {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -14,12 +14,11 @@ public class OpPhantom {
 
         frame.pack();
 
-        //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //frame.setUndecorated(true); // Remove bordas da janela
+        // frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Maximiza a janela
+        // frame.setUndecorated(true); // Remove bordas da janela
         frame.setVisible(true);
         
         janela.setupGame();
         janela.iniciarGameThread();
-        
     }
 }

@@ -1,5 +1,5 @@
 package Itens;
 
-public class Arma extends Item{
-    
+public class Arma extends Item {
+
 }

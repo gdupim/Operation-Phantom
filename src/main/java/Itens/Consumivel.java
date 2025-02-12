@@ -1,5 +1,5 @@
 package Itens;
 
-public class Consumivel extends Item{
-    
+public class Consumivel extends Item {
+
 }
