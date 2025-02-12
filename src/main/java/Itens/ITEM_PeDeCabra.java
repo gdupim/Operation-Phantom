@@ -1,6 +1,5 @@
 package Itens;
 
-
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -16,5 +15,6 @@ public class ITEM_PeDeCabra extends Ferramenta{
 
         } catch (IOException e) {
         }
+        collision = false;
     }
 }
