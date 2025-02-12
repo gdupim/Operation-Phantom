@@ -3,17 +3,12 @@ package Principal;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.InputStream;
-
 import javax.imageio.ImageIO;
 
-/**
- *
- * @author caiom
- */
 public class TileManager {
-    Tiles tile[];
+    public Tiles tile[];
     Janela j;
-    int mapTileNum[][];
+    public int mapTileNum[][];
 
     public TileManager(Janela j) {
         this.j = j;
@@ -77,7 +72,12 @@ public class TileManager {
             int screenX = worldX - j.player.worldX + j.player.screenX;
             int screenY = worldY - j.player.worldY + j.player.screenY;
 
-            g2.drawImage(tile[tileNum].image, screenX, screenY, j.tileSize, j.tileSize, null);
+            if (worldX + j.tileSize > j.player.worldX - j.player.screenX &&
+                    worldX - j.tileSize < j.player.worldX + j.player.screenX &&
+                    worldY + j.tileSize > j.player.worldY - j.player.screenY &&
+                    worldY - j.tileSize < j.player.worldY + j.player.screenY)
+                g2.drawImage(tile[tileNum].image, screenX, screenY, j.tileSize, j.tileSize, null);
+
             worldCol++;
 
             if (worldCol == j.maxWorldCol) {
