@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
 import javax.swing.JPanel;
-
 import Entidades.Entidade;
 import Entidades.Player;
 import Itens.Item;
@@ -49,6 +47,7 @@ public class Janela extends JPanel implements Runnable {
 
     // GAME STATE
     public int gameState;
+    public final int titleState = 0;
     public final int playState = 1;	
     public final int pauseState = 2;
     public final int dialogueState = 3;
@@ -68,7 +67,7 @@ public class Janela extends JPanel implements Runnable {
         aSetter.setItem();
         aSetter.setNPC();
         iniciarMsc(6);
-        gameState = playState;
+        gameState = tileSize;
 
     }
 
@@ -129,30 +128,42 @@ public class Janela extends JPanel implements Runnable {
 
         Graphics2D g2d = (Graphics2D) g;
 
-        // TILE
-        tm.draw(g2d);
+        //TELA DE LOBBY
+        if (gameState == titleState) {
+            ui.draw(g2d);
+
+        }
+
+        //OUTROS
+        else {
+             // TILE
+           tm.draw(g2d);
         
-        // ITEM
-        for(int i = 0; i<item.length; i++){
-            if(item[i] != null){
+              // ITEM
+            for(int i = 0; i<item.length; i++){
+                if(item[i] != null){
                 item[i].draw(g2d, this);
+                }
             }
-        }
 
-        // NPC
-        for(int i = 0; i < npc.length; i++){
-            if(npc[i] != null){
+            // NPC
+            for(int i = 0; i < npc.length; i++){
+                if(npc[i] != null){
                 npc[i].draw(g2d);
+                }
             }
+
+
+            // PLAYER
+            player.draw(g2d);
+        
+            ui.draw(g2d);
+
+            g2d.dispose();
+
         }
 
-
-        // PLAYER
-        player.draw(g2d);
-        
-        ui.draw(g2d);
-
-        g2d.dispose();
+       
     }
 
     public void iniciarMsc(int i) {
