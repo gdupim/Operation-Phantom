@@ -84,7 +84,7 @@ public class Player extends Entidade {
     }
     public void update() {
         if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true
-                || keyH.rightPressed == true) {
+                || keyH.rightPressed == true || keyH.ePressed == true) {
 
             if (keyH.upPressed == true) {
                 direction = "up";
@@ -99,9 +99,20 @@ public class Player extends Entidade {
             // CHECK TILE COLLISION
             collisionOn = false;
             j.cChecker.checkTile(this);
+            
+            // Check item collision
+            int itemIndex = j.cChecker.checkItem(this, true);
+            pickUpItem(itemIndex);
+            
+            // CHECK NPC COLLISION
+            int npcIndex = j.cChecker.checkEntidade(this, j.npc);
+            interactNPC(npcIndex);
+
+
 
             // SE A COLISÃO ESTIVER DESLIGADA O PLAYER NÃO SE MOVE
-            if (collisionOn == false) {
+            if (collisionOn == false && (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true
+            || keyH.rightPressed == true)) {
                 switch (direction) {
                     case "up":
                         worldY -= speed;
@@ -128,11 +139,7 @@ public class Player extends Entidade {
                 spriteCounter = 0;
             }
         }
-        if (keyH.ePressed) {
-            int itemIndex = j.cChecker.checkItem(this, true);
-            pickUpItem(itemIndex);
-            keyH.ePressed = false;
-        }
+
     }
 
     public void pickUpItem(int i) {
@@ -141,24 +148,38 @@ public class Player extends Entidade {
 
             switch (itemName) {
                 case "Pe de Cabra":
-                    hasPeDeCabra++;
-                    if (hasPeDeCabra > 1) {
-                        j.ui.showMessage("Pe de Cabra já foi Adquirido!");
-                        hasPeDeCabra = 1;
+                    if(keyH.ePressed == true){
+            
+                        hasPeDeCabra++;
+                        if (hasPeDeCabra > 1) {
+                            j.ui.showMessage("Pe de Cabra já foi Adquirido!");
+                            hasPeDeCabra = 1;
+                            break;
+                        }
+                        j.item[i] = null;
+
+                        // audio
+                        j.playSE(1);
+
+                        j.ui.showMessage("Pe de Cabra Adquirido!");
+
                         break;
-                    }
-                    j.item[i] = null;
-
-                    // audio
-                    j.playSE(1);
-
-                    j.ui.showMessage("Pe de Cabra Adquirido!");
-
-                    break;
+                }
             }
         }
-}
 
+    }
+    public void interactNPC(int i) {
+
+        if (i != 999) {
+            if (keyH.ePressed) {
+                j.gameState = j.dialogueState;
+                j.npc[i].speak();
+                //keyH.ePressed = false;
+            }
+        }
+    }
+    
     @Override
     public void draw(Graphics2D g2) {
         BufferedImage img = null;

@@ -1,10 +1,15 @@
 package Principal;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import Itens.ITEM_PeDeCabra;
 import javax.imageio.ImageIO;
@@ -17,7 +22,7 @@ public class UI {
 
     Janela j;
     Graphics2D g2;
-    Font arial_36, arial_20, arial_40B;
+    Font retroGaming;
     BufferedImage peDeCabraImage;
     public boolean messageOn = false;
     public String message = "";
@@ -25,13 +30,19 @@ public class UI {
     public boolean gameFinished = false;
     public double playTime = 0;
     DecimalFormat dFormat = new DecimalFormat("#0.00");
+    public String  currentDialogue = "";
 
     public UI(Janela j) {
         this.j = j;
 
-        arial_40B = new Font("Arial", Font.BOLD, 40);
-        arial_36 = new Font("Arial", Font.PLAIN, 36);
-        arial_20 = new Font("Arial", Font.PLAIN, 20);
+        try {
+            InputStream is = getClass().getResourceAsStream("/Principal/fontSrc/Retro Gaming.ttf");
+            retroGaming = Font.createFont(Font.TRUETYPE_FONT, is);
+
+        }
+        catch (FontFormatException | IOException e) {
+            System.out.println("Erro ao carregar fonte");
+        }
 
         ITEM_PeDeCabra peDeCabra = new ITEM_PeDeCabra(j);
         peDeCabraImage = peDeCabra.image;
@@ -51,7 +62,8 @@ public class UI {
     public void draw(Graphics2D g2) {
         this.g2 = g2;
 
-        g2.setFont(arial_36);
+        g2.setFont(retroGaming);
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2.setColor(Color.WHITE);
 
         //TITULO DO JOGO
@@ -64,34 +76,34 @@ public class UI {
             
             if (gameFinished) {
 
-                g2.setFont(arial_40B);
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50));
                 g2.setColor(Color.RED);
-                g2.drawString("Parabéns! Você encontrou os 2 Pés de Cabra!", j.tileSize * 2 / 2, 576 / 2);
-                g2.setFont(arial_36);
+                g2.drawString("Parabéns!", j.tileSize * 2 / 2, 576 / 2);
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50));
                 g2.drawString("Tempo: " + dFormat.format(playTime), j.tileSize * 2 / 2, 576 / 2 + 60);
                 j.gameThread = null;
 
             } else {
 
-                g2.setFont(arial_36);
-                g2.setColor(Color.WHITE);
-                g2.drawImage(peDeCabraImage, j.tileSize / 2, j.tileSize / 2, j.tileSize, j.tileSize, null);
-                g2.drawString("x" + j.player.hasPeDeCabra, 80, 74);
+                if (j.player.hasPeDeCabra >= 1) {
+                    g2.drawImage(peDeCabraImage, j.tileSize / 2, j.tileSize / 2, j.tileSize, j.tileSize, null);
+                }
 
-                g2.setFont(arial_20);
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD, 14));
                 g2.setColor(Color.WHITE);
                 g2.drawString("Especial", j.tileSize / 2, 540);
 
-                g2.setFont(arial_20);
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD, 13));
                 g2.setColor(Color.WHITE);
                 g2.drawString("Caixa", j.tileSize * 2, 540);
 
                 // TIME
+                g2.setFont(g2.getFont().deriveFont(Font.ITALIC, 20));
                 playTime += (double) 1 / 60;
                 g2.drawString("Tempo: " + dFormat.format(playTime), j.tileSize * 13, 74);
 
                 if (messageOn) {
-                    g2.setFont(arial_20);
+                    g2.setFont(g2.getFont().deriveFont(Font.BOLD, 12));
                     g2.setColor(Color.WHITE);
                     g2.drawString(message, j.tileSize / 2, j.tileSize * 5);
 
@@ -107,6 +119,9 @@ public class UI {
         if(j.gameState == j.pauseState){
             drawPauseScreen();
         }
+        if(j.gameState == j.dialogueState){
+            drawDialogueScreen();
+        }
 
     }
 
@@ -119,6 +134,7 @@ public class UI {
     }
     public void drawPauseScreen() {
 
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50));
         String text = "PAUSED";
         int x = getXforCenteredText(text);
 
@@ -127,6 +143,35 @@ public class UI {
         g2.drawString(text, x, y);
 
     }
+
+    public void drawDialogueScreen() {
+
+        int x = j.tileSize * 2;
+        int y = j.tileSize / 2;
+        int width = j.screenWidth - j.tileSize * 4;
+        int height = j.tileSize * 4;
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 18));
+        g2.setColor(Color.WHITE);
+        drawSubWindow(x,y,width,height);
+        x += j.tileSize;
+        y += j.tileSize;
+        for(String line: currentDialogue.split("\n")){
+            g2.drawString(line, x, y);
+            y += j.tileSize / 2;
+        }
+
+    }
+    public void drawSubWindow(int x, int y, int width, int height) {
+
+        Color c = new Color(0, 0, 0, 140);
+        g2.setColor(c);
+        g2.fillRoundRect(x, y, width, height, 45, 45);
+        g2.setColor(Color.WHITE);
+        g2.setStroke(new BasicStroke(4));
+        g2.drawRoundRect(x+4, y+4, width-8, height-8, 35, 35);
+
+    } 
 
     public int getXforCenteredText(String text){
 
