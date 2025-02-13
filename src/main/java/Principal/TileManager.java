@@ -25,10 +25,21 @@ public class TileManager {
     }
 
     public void getTileImage() {
-<<<<<<< HEAD
 
-        setup(0, "grama_grid", false);
-
+        setup(0, "misc/grama_grid", false);
+        setup(1, "chao/tile_aslfalto", false);
+        setup(2, "chao/tile_azulejo", false);
+        setup(3, "chao/tile_chao_metal", false);
+        setup(4, "parede/metal/tile_canto_inf_dir", true);
+        setup(5, "parede/metal/tile_canto_inf_esq", true);
+        setup(6, "parede/metal/tile_canto_sup_dir", true);
+        setup(7, "parede/metal/tile_canto_sup_esq", true);
+        setup(8, "parede/metal/tile_lateral", true);
+        setup(9, "parede/metal/tile_vertical", true);
+        setup(10, "misc/tile_box", false);
+        setup(11, "misc/tile_box2", false);
+        
+        
     }
 
     public void setup(int index, String imageName, boolean collision) {
@@ -44,12 +55,13 @@ public class TileManager {
 
         } catch (IOException e) {
             System.err.println("Error loading tile image: " + e.getMessage());
-=======
-        try {
-            tile[0] = new Tiles();
+        }
+    }
+        //try {
+           // tile[0] = new Tiles();
 
             // imagem teste
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/Sprites/grama_grid.png"));
+           // tile[0].image = ImageIO.read(getClass().getResourceAsStream("/Sprites/grama_grid.png"));
 
             // // tiles de chao
             // tile[1].image =
@@ -78,12 +90,11 @@ public class TileManager {
             // ImageIO.read(getClass().getResourceAsStream("/Sprites/tiles/misc/tile_box.png"));
             // tile[11].image =
             // ImageIO.read(getClass().getResourceAsStream("/Sprites/tiles/misc/tile_box2.png"));
-        } catch (Exception e) {
-            e.printStackTrace();
->>>>>>> 18a9c3b58c326ace25cf712346ef4f7997a3b143
-        }
+       // } catch (Exception e) {
+          //  e.printStackTrace();
+       // }
 
-    }
+   // }
 
     public void loadMap(String path) {
         try {
@@ -116,13 +127,8 @@ public class TileManager {
             }
             br.close();
 
-<<<<<<< HEAD
         } catch (IOException | NumberFormatException e) {
             System.err.println("Error loading map: " + e.getMessage());
-=======
-            br.close();
-        } catch (Exception e) {
->>>>>>> 18a9c3b58c326ace25cf712346ef4f7997a3b143
         }
     }
 
