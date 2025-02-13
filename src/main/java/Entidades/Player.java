@@ -154,16 +154,8 @@ public class Player extends Entidade {
                     // audio
                     j.playSE(1);
 
-                    hasPeDeCabra++;
-
                     j.ui.showMessage("Pe de Cabra Adquirido!");
 
-                    if (hasPeDeCabra == 2) {
-                        j.ui.gameFinished = true;
-
-                    }
-                    j.item[i] = null;
-                    j.ui.showMessage("Pe de Cabra Adquirido!");
                     break;
             }
         }

@@ -26,8 +26,20 @@ public class TileManager {
 
     public void getTileImage() {
 
-        setup(0, "grama_grid", false);
-
+        setup(0, "misc/grama_grid", false);
+        setup(1, "chao/tile_aslfalto", false);
+        setup(2, "chao/tile_azulejo", false);
+        setup(3, "chao/tile_chao_metal", false);
+        setup(4, "parede/metal/tile_canto_inf_dir", true);
+        setup(5, "parede/metal/tile_canto_inf_esq", true);
+        setup(6, "parede/metal/tile_canto_sup_dir", true);
+        setup(7, "parede/metal/tile_canto_sup_esq", true);
+        setup(8, "parede/metal/tile_lateral", true);
+        setup(9, "parede/metal/tile_vertical", true);
+        setup(10, "misc/tile_box", false);
+        setup(11, "misc/tile_box2", false);
+        
+        
     }
 
     public void setup(int index, String imageName, boolean collision) {
