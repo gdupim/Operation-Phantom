@@ -3,12 +3,18 @@ package Principal;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
-
 import Itens.ITEM_PeDeCabra;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
 public class UI {
+
+    BufferedImage backgroundTitleImage;
+
     Janela j;
     Graphics2D g2;
     Font arial_36, arial_20, arial_40B;
@@ -30,6 +36,11 @@ public class UI {
         ITEM_PeDeCabra peDeCabra = new ITEM_PeDeCabra(j);
         peDeCabraImage = peDeCabra.image;
 
+        try {
+            backgroundTitleImage = ImageIO.read(new File("c:\\Users\\User\\Documents\\Faculdade - 2° Sementre\\Programação orientada a objetos\\tellaLoggin_P1.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showMessage(String text) {
@@ -43,6 +54,12 @@ public class UI {
         g2.setFont(arial_36);
         g2.setColor(Color.WHITE);
 
+        //TITULO DO JOGO
+        if(j.gameState == j.titleState){
+            drawTitleScreen();
+        }
+       
+        //ESTADO DO JOGO
         if(j.gameState == j.playState){
             
             if (gameFinished) {
@@ -89,6 +106,14 @@ public class UI {
         }
         if(j.gameState == j.pauseState){
             drawPauseScreen();
+        }
+
+    }
+
+    public void drawTitleScreen() {
+        
+        if (backgroundTitleImage != null) {
+            g2.drawImage(backgroundTitleImage, 0, 0, j.screenWidth, j.screenHeight, null);
         }
 
     }
