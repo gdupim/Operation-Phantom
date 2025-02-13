@@ -1,10 +1,13 @@
 package Principal;
 
+import java.io.IOException;
 import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Audio {
     Clip clip;
@@ -26,8 +29,8 @@ public class Audio {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundURL[i]);
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+            System.err.println("Error loading audio file: " + e.getMessage());
         }
     }
 

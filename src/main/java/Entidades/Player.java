@@ -9,29 +9,21 @@ import javax.imageio.ImageIO;
 
 import Principal.Janela;
 import Principal.KeyHandler;
+import Principal.UtilityTool;
 
-/**
- *
- * @author caiom
- */
 public class Player extends Entidade {
-    Janela j;
-    KeyHandler keyH = new KeyHandler();
+
+    KeyHandler keyH = new KeyHandler(j);
 
     public final int screenX;
     public final int screenY;
     public int hasPeDeCabra = 0;
-
-    public void setDefaultValues() {
-        worldX = j.tileSize * 23;
-        worldY = j.tileSize * 13;
-        speed = 4;
-        direction = "down";
-    }
+    public boolean peDeCabraEquipped = false;
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public Player(Janela j, KeyHandler keyH) {
-        this.j = j;
+        super(j);
+
         this.keyH = keyH;
 
         screenX = j.screenWidth / 2 - j.tileSize / 2;
@@ -44,19 +36,51 @@ public class Player extends Entidade {
         getPlayerImage();
     }
 
+    public void setDefaultValues() {
+        worldX = j.tileSize * 23;
+        worldY = j.tileSize * 13;
+        speed = 4;
+        direction = "down";
+    }
+
     public void getPlayerImage() {
-        try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/mov/snake_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/mov/snake_up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/mov/snake_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/mov/snake_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/mov/snake_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/mov/snake_left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/mov/snake_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Player/snake/mov/snake_right_2.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        up1 = setup("/Sprites/Player/snake/mov/snake_up_1");
+        up2 = setup("/Sprites/Player/snake/mov/snake_up_2");
+        down1 = setup("/Sprites/Player/snake/mov/snake_down_1");
+        down2 = setup("/Sprites/Player/snake/mov/snake_down_2");
+        left1 = setup("/Sprites/Player/snake/mov/snake_left_1");
+        left2 = setup("/Sprites/Player/snake/mov/snake_left_2");
+        right1 = setup("/Sprites/Player/snake/mov/snake_right_1");
+        right2 = setup("/Sprites/Player/snake/mov/snake_right_2");
+        if (hasPeDeCabra >= 1) {
+            up1 = setup("/Sprites/Player/snake/cabra/snake_up_cabra_1");
+            up2 = setup("/Sprites/Player/snake/cabra/snake_up_cabra_2");
+            down1 = setup("/Sprites/Player/snake/cabra/snake_down_cabra_1");
+            down2 = setup("/Sprites/Player/snake/cabra/snake_down_cabra_2");
+            left1 = setup("/Sprites/Player/snake/cabra/snake_left_cabra_1");
+            left2 = setup("/Sprites/Player/snake/cabra/snake_left_cabra_2");
+            right1 = setup("/Sprites/Player/snake/cabra/snake_right_cabra_1");
+            right2 = setup("/Sprites/Player/snake/cabra/snake_right_cabra_2");
         }
+
+    }
+
+    @Override
+    public BufferedImage setup(String imageName) {
+
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream(imageName + ".png"));
+            image = uTool.scaleImage(image, j.tileSize, j.tileSize);
+
+        } catch (IOException e) {
+            System.err.println("Error loading tile image: " + e.getMessage());
+        }
+        return image;
+
     }
 
     public void update() {
@@ -118,6 +142,12 @@ public class Player extends Entidade {
 
             switch (itemName) {
                 case "Pe de Cabra":
+                    hasPeDeCabra++;
+                    if (hasPeDeCabra > 1) {
+                        j.ui.showMessage("Pe de Cabra já foi Adquirido!");
+                        hasPeDeCabra = 1;
+                        break;
+                    }
                     j.item[i] = null;
 
                     // audio
@@ -136,9 +166,14 @@ public class Player extends Entidade {
         }
     }
 
+    @Override
     public void draw(Graphics2D g2) {
         BufferedImage img = null;
 
+        if (hasPeDeCabra >= 1 && peDeCabraEquipped == false) {
+            getPlayerImage();
+            peDeCabraEquipped = true;
+        }
         switch (direction) {
             case "up":
                 if (spriteNum == 1)
@@ -166,6 +201,6 @@ public class Player extends Entidade {
                 break;
         }
 
-        g2.drawImage(img, screenX, screenY, j.tileSize, j.tileSize, null);
+        g2.drawImage(img, screenX, screenY, null);
     }
 }

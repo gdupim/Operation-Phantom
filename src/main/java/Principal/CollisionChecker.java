@@ -28,7 +28,7 @@ public class CollisionChecker {
                 tileNum1 = j.tm.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = j.tm.mapTileNum[entityRightCol][entityTopRow];
 
-                if (j.tm.tile[tileNum1].colision == true || j.tm.tile[tileNum2].colision == true) {
+                if (j.tm.tile[tileNum1].collision == true || j.tm.tile[tileNum2].collision == true) {
                     Entidades.collisionOn = true;
                 }
 
@@ -38,7 +38,7 @@ public class CollisionChecker {
                 tileNum1 = j.tm.mapTileNum[entityLeftCol][entityBottomRow];
                 tileNum2 = j.tm.mapTileNum[entityRightCol][entityBottomRow];
 
-                if (j.tm.tile[tileNum1].colision == true || j.tm.tile[tileNum2].colision == true) {
+                if (j.tm.tile[tileNum1].collision == true || j.tm.tile[tileNum2].collision == true) {
                     Entidades.collisionOn = true;
                 }
 
@@ -48,7 +48,7 @@ public class CollisionChecker {
                 tileNum1 = j.tm.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = j.tm.mapTileNum[entityLeftCol][entityBottomRow];
 
-                if (j.tm.tile[tileNum1].colision == true || j.tm.tile[tileNum2].colision == true) {
+                if (j.tm.tile[tileNum1].collision == true || j.tm.tile[tileNum2].collision == true) {
                     Entidades.collisionOn = true;
                 }
 
@@ -58,7 +58,7 @@ public class CollisionChecker {
                 tileNum1 = j.tm.mapTileNum[entityRightCol][entityTopRow];
                 tileNum2 = j.tm.mapTileNum[entityRightCol][entityBottomRow];
 
-                if (j.tm.tile[tileNum1].colision == true || j.tm.tile[tileNum2].colision == true) {
+                if (j.tm.tile[tileNum1].collision == true || j.tm.tile[tileNum2].collision == true) {
                     Entidades.collisionOn = true;
                 }
 

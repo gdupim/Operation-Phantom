@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import Entidades.Entidade;
 import Entidades.Player;
 import Itens.Item;
 
@@ -25,8 +26,8 @@ public class Janela extends JPanel implements Runnable {
     int FPS = 60;
 
     // CONFIG MUNDO
-    public final int maxWorldCol = 51;
-    public final int maxWorldRow = 51;
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
     // n sera usado:
     // public final int worldWidth = tileSize * maxWorldCol;
     // public final int worldHeight = tileSize * maxWorldRow;
@@ -37,13 +38,19 @@ public class Janela extends JPanel implements Runnable {
     Audio msc = new Audio();
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
-    public KeyHandler keyH = new KeyHandler();
+    public KeyHandler keyH = new KeyHandler(this);
+    public UI ui = new UI(this);
     Thread gameThread;
 
     // ENTIDADE E OBJETO
     public Player player = new Player(this, keyH);
-    public UI ui = new UI(this);
     public Item item[] = new Item[10];
+    public Entidade npc[] = new Entidade[10];
+
+    // GAME STATE
+    public int gameState;
+    public final int playState = 1;	
+    public final int pauseState = 2;
 
     // construtor
     public Janela() {
@@ -56,9 +63,12 @@ public class Janela extends JPanel implements Runnable {
     }
 
     public void setupGame() {
+        
         aSetter.setItem();
-
+        aSetter.setNPC();
         iniciarMsc(6);
+        gameState = playState;
+
     }
 
     @Override
@@ -96,7 +106,13 @@ public class Janela extends JPanel implements Runnable {
     }
 
     public void update() {
-        player.update();
+        if (gameState == playState) {
+            player.update();
+        }
+        if (gameState == pauseState) {
+            // pause
+        }
+         
     }
 
     @Override
@@ -107,17 +123,25 @@ public class Janela extends JPanel implements Runnable {
 
         // TILE
         tm.draw(g2d);
-
+        
         // ITEM
-        for (int i = 0; i < item.length; i++) {
-            if (item[i] != null) {
+        for(int i = 0; i<item.length; i++){
+            if(item[i] != null){
                 item[i].draw(g2d, this);
             }
         }
 
+        // NPC
+        for(int i = 0; i < npc.length; i++){
+            if(npc[i] != null){
+                npc[i].draw(g2d);
+            }
+        }
+
+
         // PLAYER
         player.draw(g2d);
-
+        
         ui.draw(g2d);
 
         g2d.dispose();
