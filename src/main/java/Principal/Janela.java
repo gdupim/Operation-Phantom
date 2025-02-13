@@ -4,9 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+
 import javax.swing.JPanel;
+
+import Entidades.CobradeAluminio;
+import Entidades.DuroDuro;
 import Entidades.Entidade;
 import Entidades.Player;
+import Entidades.Tempestade;
 import Itens.Item;
 
 public class Janela extends JPanel implements Runnable {
@@ -41,17 +46,20 @@ public class Janela extends JPanel implements Runnable {
     Thread gameThread;
 
     // ENTIDADE E OBJETO
-    public Player player = new Player(this, keyH);
+    public  Player  player[] = new Player[3];
     public Item item[] = new Item[10];
     public Entidade npc[] = new Entidade[10];
-
+    public int  playerIndex = 2;
+    
+    
+    
     // GAME STATE
     public int gameState;
     public final int titleState = 0;
     public final int playState = 1;	
     public final int pauseState = 2;
     public final int dialogueState = 3;
-
+    
     // construtor
     public Janela() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -61,16 +69,18 @@ public class Janela extends JPanel implements Runnable {
         this.requestFocus();
         this.addKeyListener(keyH);
     }
-
+    
     public void setupGame() {
-        
+        player[0] = new CobradeAluminio(this, keyH);
+        player[1] = new DuroDuro(this, keyH);
+        player[2] = new Tempestade(this, keyH);
         aSetter.setItem();
         aSetter.setNPC();
         iniciarMsc(6);
-        gameState = tileSize;
-
+        gameState = playState;
+        
     }
-
+    
     @Override
     public void run() {
         double drawInterval = 1000000000 / FPS;
@@ -79,13 +89,13 @@ public class Janela extends JPanel implements Runnable {
         long currentTime;
         long timer = 0;
         int drawCount = 0;
-
+        
         // game loop
         while (gameThread != null) {
             currentTime = System.nanoTime();
-
+            
             delta += (currentTime - lastTime) / drawInterval;
-
+            
             timer += currentTime - lastTime;
 
             lastTime = currentTime;
@@ -96,7 +106,7 @@ public class Janela extends JPanel implements Runnable {
                 delta--;
                 drawCount++;
             }
-
+            
             if (timer >= 1000000000) {
                 System.out.println("FPS: " + drawCount);
                 drawCount = 0;
@@ -104,11 +114,11 @@ public class Janela extends JPanel implements Runnable {
             }
         }
     }
-
+    
     public void update() {
         if (gameState == playState) {
-            // PLAYER
-            player.update();
+            //  PLAYER[playerIndex]
+            player[playerIndex].update();
             // NPC
             for (int i = 0; i < npc.length; i++) {
                 if (npc[i] != null) {
@@ -119,15 +129,15 @@ public class Janela extends JPanel implements Runnable {
         if (gameState == pauseState) {
             // pause
         }
-         
+        
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
+        
         Graphics2D g2d = (Graphics2D) g;
-
+        
         //TELA DE LOBBY
         if (gameState == titleState) {
             ui.draw(g2d);
@@ -154,8 +164,8 @@ public class Janela extends JPanel implements Runnable {
             }
 
 
-            // PLAYER
-            player.draw(g2d);
+            //  PLAYER[playerIndex]
+            player[playerIndex].draw(g2d);
         
             ui.draw(g2d);
 

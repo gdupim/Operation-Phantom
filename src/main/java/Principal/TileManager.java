@@ -21,7 +21,7 @@ public class TileManager {
         mapTileNum = new int[j.maxWorldRow][j.maxWorldCol];
 
         getTileImage();
-        loadMap("/Mapas/grid_map.txt");
+        loadMap("/Mapas/test_map.txt");
     }
 
     public void getTileImage() {
@@ -104,13 +104,13 @@ public class TileManager {
 
             int worldX = worldCol * j.tileSize;
             int worldY = worldRow * j.tileSize;
-            int screenX = worldX - j.player.worldX + j.player.screenX;
-            int screenY = worldY - j.player.worldY + j.player.screenY;
+            int screenX = worldX - j.player[j.playerIndex].worldX + j.player[j.playerIndex].screenX;
+            int screenY = worldY - j.player[j.playerIndex].worldY + j.player[j.playerIndex].screenY;
 
-            if (worldX + j.tileSize > j.player.worldX - j.player.screenX &&
-                    worldX - j.tileSize < j.player.worldX + j.player.screenX &&
-                    worldY + j.tileSize > j.player.worldY - j.player.screenY &&
-                    worldY - j.tileSize < j.player.worldY + j.player.screenY)
+            if (worldX + j.tileSize > j.player[j.playerIndex].worldX - j.player[j.playerIndex].screenX &&
+                    worldX - j.tileSize < j.player[j.playerIndex].worldX + j.player[j.playerIndex].screenX &&
+                    worldY + j.tileSize > j.player[j.playerIndex].worldY - j.player[j.playerIndex].screenY &&
+                    worldY - j.tileSize < j.player[j.playerIndex].worldY + j.player[j.playerIndex].screenY)
                 g2.drawImage(tile[tileNum].image, screenX, screenY, null);
 
             worldCol++;

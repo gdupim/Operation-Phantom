@@ -26,6 +26,10 @@ public class Entidade {
     public String[] dialogue = new String[20]; 
     public int dialogueIndex = 0;
 
+    // STATUS
+    public int maxLife;
+    public int life;
+
     public Entidade(Janela j) {
         this.j = j;
     }
@@ -38,7 +42,7 @@ public class Entidade {
         j.ui.currentDialogue = dialogue[dialogueIndex];
         dialogueIndex++;
 
-        switch (j.player.direction) {
+        switch (j.player[j.playerIndex].direction) {
             case "up":
                 direction = "down";
                 break;
@@ -100,13 +104,13 @@ public class Entidade {
 
         BufferedImage img = null;
 
-        int screenX = worldX - j.player.worldX + j.player.screenX;
-        int screenY = worldY - j.player.worldY + j.player.screenY;
+        int screenX = worldX - j.player[j.playerIndex].worldX + j.player[j.playerIndex].screenX;
+        int screenY = worldY - j.player[j.playerIndex].worldY + j.player[j.playerIndex].screenY;
 
-        if (worldX + j.tileSize > j.player.worldX - j.player.screenX &&
-                worldX - j.tileSize < j.player.worldX + j.player.screenX &&
-                worldY + j.tileSize > j.player.worldY - j.player.screenY &&
-                worldY - j.tileSize < j.player.worldY + j.player.screenY){
+        if (worldX + j.tileSize > j.player[j.playerIndex].worldX - j.player[j.playerIndex].screenX &&
+                worldX - j.tileSize < j.player[j.playerIndex].worldX + j.player[j.playerIndex].screenX &&
+                worldY + j.tileSize > j.player[j.playerIndex].worldY - j.player[j.playerIndex].screenY &&
+                worldY - j.tileSize < j.player[j.playerIndex].worldY + j.player[j.playerIndex].screenY){
 
             switch (direction) {
                 case "up":

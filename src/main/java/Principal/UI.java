@@ -5,16 +5,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
-import Itens.ITEM_PeDeCabra;
+
 import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
+
+import Itens.ITEM_PeDeCabra;
+import Itens.ITEM_Vida;
+import Itens.Item;
 
 public class UI {
 
@@ -23,7 +25,7 @@ public class UI {
     Janela j;
     Graphics2D g2;
     Font retroGaming;
-    BufferedImage peDeCabraImage;
+    BufferedImage peDeCabraImage, vida_cheia, vida_cheia_dano, vida_2, vida_2_dano, vida_1, vida_1_dano;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
@@ -48,10 +50,21 @@ public class UI {
         peDeCabraImage = peDeCabra.image;
 
         try {
-            backgroundTitleImage = ImageIO.read(new File("c:\\Users\\User\\Documents\\Faculdade - 2° Sementre\\Programação orientada a objetos\\tellaLoggin_P1.jpg"));
+            backgroundTitleImage = ImageIO.read(new File("src/main/java/Principal/UISrc/UI_teladelogin.png"));
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace();    
         }
+
+        // HUD OBJECT
+        Item vida = new ITEM_Vida(j);
+        vida_cheia = vida.image;
+        vida_cheia_dano = vida.image2;
+        vida_2 = vida.image3;
+        vida_2_dano = vida.image4;
+        vida_1 = vida.image5;
+        vida_1_dano = vida.image6;
+    
+
     }
 
     public void showMessage(String text) {
@@ -73,7 +86,7 @@ public class UI {
        
         //ESTADO DO JOGO
         if(j.gameState == j.playState){
-            
+            drawVidaPlayer();
             if (gameFinished) {
 
                 g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50));
@@ -85,8 +98,8 @@ public class UI {
 
             } else {
 
-                if (j.player.hasPeDeCabra >= 1) {
-                    g2.drawImage(peDeCabraImage, j.tileSize / 2, j.tileSize / 2, j.tileSize, j.tileSize, null);
+                if (j.player[j.playerIndex].hasPeDeCabra >= 1) {
+                    g2.drawImage(peDeCabraImage, j.tileSize*15, j.tileSize*8, j.tileSize, j.tileSize, null);
                 }
 
                 g2.setFont(g2.getFont().deriveFont(Font.BOLD, 14));
@@ -117,12 +130,31 @@ public class UI {
             }
         }
         if(j.gameState == j.pauseState){
+            drawVidaPlayer();
             drawPauseScreen();
         }
         if(j.gameState == j.dialogueState){
+            drawVidaPlayer();
             drawDialogueScreen();
         }
 
+    }
+
+    public void drawVidaPlayer(){
+
+        int x = j.tileSize/2;
+        int y = j.tileSize/2;
+        int i = 0;
+
+        if(j.player[j.playerIndex].life == j.player[j.playerIndex].maxLife){
+            g2.drawImage(vida_cheia, x, y, j.tileSize, j.tileSize, null);
+        }
+        else if(j.player[j.playerIndex].life == 2){
+            g2.drawImage(vida_2, x, y, j.tileSize, j.tileSize, null);
+        }
+        else if(j.player[j.playerIndex].life == 1){
+            g2.drawImage(vida_1, x, y, j.tileSize, j.tileSize, null);
+        }
     }
 
     public void drawTitleScreen() {
