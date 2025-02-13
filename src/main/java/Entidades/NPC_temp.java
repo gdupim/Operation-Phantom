@@ -1,5 +1,7 @@
 package Entidades;
 
+import java.util.Random;
+
 import Principal.Janela;
 
 
@@ -12,6 +14,43 @@ public class NPC_temp extends Entidade {
         speed = 1;
 
         getImage();
+        setDialogue();
+    }
+
+    public void setDialogue(){
+        dialogue[0] = "Olá, eu sou um\nNPC!  ";
+        dialogue[1] = "Zé é um otário...";
+        dialogue[2] = "...e o gabriel também!";
+    }
+
+    public void setAction() {
+
+        actionLockCounter++;
+
+        if (actionLockCounter == 120){
+            Random random = new Random();
+            int i = random.nextInt(100)+1;
+
+            if (i <= 25) {
+                direction = "up";
+            }
+            if (i > 25 && i <= 50) {
+                direction = "down";
+            }
+            if (i > 50 && i <= 75) {
+                direction = "left";
+            }
+            if (i > 75 && i <= 100) {
+                direction = "right";
+            }
+            actionLockCounter = 0;
+         }
+        
+    }
+    public void speak(){
+
+        super.speak();
+
     }
     
         public void getImage() {

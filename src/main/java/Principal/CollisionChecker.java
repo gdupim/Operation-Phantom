@@ -141,4 +141,112 @@ public class CollisionChecker {
 
         return index;
     }
+    // NPC ou MONSTRO
+    public int checkEntidade(Entidade entidade, Entidade[] target){
+        
+        int index = 999;
+
+        for (int i = 0; i < j.item.length; i++){
+
+            if(target[i] != null){
+
+                // area solida entidade
+                entidade.solidArea.x = entidade.worldX + entidade.solidAreaDefaultX;
+                entidade.solidArea.y = entidade.worldY + entidade.solidAreaDefaultY;
+                // area solida item
+                target[i].solidArea.x = target[i].worldX + target[i].solidAreaDefaultX;
+                target[i].solidArea.y = target[i].worldY + target[i].solidAreaDefaultY;
+
+                switch(entidade.direction){
+                    case "up":
+                        entidade.solidArea.y -= entidade.speed;
+                        if(entidade.solidArea.intersects(target[i].solidArea)){
+                            entidade.collisionOn = true;
+                            index = i;
+                            
+                            
+                        }
+                        break;
+                    case "down":
+                        entidade.solidArea.y += entidade.speed;
+                        if(entidade.solidArea.intersects(target[i].solidArea)){
+                            entidade.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                    case "left":
+                        entidade.solidArea.x -= entidade.speed;
+                        if(entidade.solidArea.intersects(target[i].solidArea)){
+                            entidade.collisionOn = true;
+                            index = i;
+                    }
+                        break;
+                    case "right":
+                        entidade.solidArea.x += entidade.speed;
+                        if(entidade.solidArea.intersects(target[i].solidArea)){
+                            entidade.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                }
+                entidade.solidArea.x = entidade.solidAreaDefaultX;
+                entidade.solidArea.y = entidade.solidAreaDefaultY;
+                target[i].solidArea.x = target[i].solidAreaDefaultX;
+                target[i].solidArea.y = target[i].solidAreaDefaultY;
+            }
+        }
+
+        return index;
+    }
+    public void checkPlayer(Entidade entidade){
+                
+
+        for (int i = 0; i < j.item.length; i++){
+
+            if(j.player != null){
+
+                // area solida entidade
+                entidade.solidArea.x = entidade.worldX + entidade.solidAreaDefaultX;
+                entidade.solidArea.y = entidade.worldY + entidade.solidAreaDefaultY;
+                // area solida item
+                j.player.solidArea.x = j.player.worldX + j.player.solidAreaDefaultX;
+                j.player.solidArea.y = j.player.worldY + j.player.solidAreaDefaultY;
+
+                switch(entidade.direction){
+                    case "up":
+                        entidade.solidArea.y -= entidade.speed;
+                        if(entidade.solidArea.intersects(j.player.solidArea)){
+                            entidade.collisionOn = true;
+                            
+                            
+                        }
+                        break;
+                    case "down":
+                        entidade.solidArea.y += entidade.speed;
+                        if(entidade.solidArea.intersects(j.player.solidArea)){
+                            entidade.collisionOn = true;
+                        }
+                        break;
+                    case "left":
+                        entidade.solidArea.x -= entidade.speed;
+                        if(entidade.solidArea.intersects(j.player.solidArea)){
+                            entidade.collisionOn = true;
+                    }
+                        break;
+                    case "right":
+                        entidade.solidArea.x += entidade.speed;
+                        if(entidade.solidArea.intersects(j.player.solidArea)){
+                            entidade.collisionOn = true;
+
+                        }
+                        break;
+                }
+                entidade.solidArea.x = entidade.solidAreaDefaultX;
+                entidade.solidArea.y = entidade.solidAreaDefaultY;
+                j.player.solidArea.x = j.player.solidAreaDefaultX;
+                j.player.solidArea.y = j.player.solidAreaDefaultY;
+            }
+        }
+
+    }
 }
