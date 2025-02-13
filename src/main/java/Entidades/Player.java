@@ -139,14 +139,30 @@ public class Player extends Entidade {
 
     public void pickUpItem(int i) {
         if (i != 999) {
+            String itemName = j.item[i].nome;
 
-            switch (j.item[i].nome) {
+            switch (itemName) {
                 case "Pe de Cabra":
+<<<<<<< HEAD
                     hasPeDeCabra++;
                     if (hasPeDeCabra > 1) {
                         j.ui.showMessage("Pe de Cabra já foi Adquirido!");
                         hasPeDeCabra = 1;
                         break;
+=======
+                    j.item[i] = null;
+
+                    // audio
+                    j.playSE(1);
+
+                    hasPeDeCabra++;
+
+                    j.ui.showMessage("Pe de Cabra Adquirido!");
+
+                    if (hasPeDeCabra == 2) {
+                        j.ui.gameFinished = true;
+
+>>>>>>> 18a9c3b58c326ace25cf712346ef4f7997a3b143
                     }
                     j.item[i] = null;
                     j.ui.showMessage("Pe de Cabra Adquirido!");

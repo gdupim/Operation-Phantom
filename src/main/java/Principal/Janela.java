@@ -153,6 +153,7 @@ public class Janela extends JPanel implements Runnable {
         msc.loop();
     }
 
+    // tocar efeitos sonoros
     public void playSE(int i) {
         audio.setFile(i);
         audio.play();
