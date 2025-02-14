@@ -25,6 +25,37 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
+      
+        // MENU
+        if(j.gameState == j.titleState){
+            
+            if (code == KeyEvent.VK_W) {
+                j.ui.commandNum--;
+                if(j.ui.commandNum < 0){
+                    j.ui.commandNum = 2;
+                }
+            }
+
+            if (code == KeyEvent.VK_S) {
+                j.ui.commandNum++;
+                if(j.ui.commandNum > 2){
+                    j.ui.commandNum = 0;
+                }
+            }
+
+            if (code == KeyEvent.VK_ENTER){
+                if(j.ui.commandNum == 0){
+                    j.gameState = j.playState; // vai para o substate seleção de personagem.
+                }
+                else if(j.ui.commandNum == 1){
+                    j.gameState = j.playState; // vai ser os creditos
+                }
+                else if(j.ui.commandNum == 2){ //sai, assim eu espero.
+                    System.exit(0);
+                }
+            }
+        }
+      
         // Play State
         if(j.gameState == j.playState){
 
