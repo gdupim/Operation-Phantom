@@ -49,7 +49,7 @@ public class Janela extends JPanel implements Runnable {
     public  Player  player[] = new Player[3];
     public Item item[] = new Item[10];
     public Entidade npc[] = new Entidade[10];
-    public int  playerIndex = 2;
+    public int  playerIndex = 1;
     
     
     
