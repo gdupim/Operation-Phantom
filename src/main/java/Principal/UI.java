@@ -33,7 +33,8 @@ public class UI {
     public double playTime = 0;
     DecimalFormat dFormat = new DecimalFormat("#0.00");
     public String  currentDialogue = "";
-    public int commandNum = 0;
+    public int comandNum = 0;
+    public int titleScreenState = 0; 
 
     public UI(Janela j) {
         this.j = j;
@@ -160,46 +161,94 @@ public class UI {
 
     public void drawTitleScreen() {
         
-        if (backgroundTitleImage != null) {
-            g2.drawImage(backgroundTitleImage, 0, 0, j.screenWidth, j.screenHeight, null);
-        }
+        if(titleScreenState == 0 ){
 
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50));
-        String text = " ";
-        int x = getXforCenteredText(text);
-        int y = j.tileSize * 3;
+            if (backgroundTitleImage != null) {
+                g2.drawImage(backgroundTitleImage, 0, 0, j.screenWidth, j.screenHeight, null);
+            }
 
-        g2.setColor(Color.RED);
-        g2.drawString(text, x, y);
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50));
+            String text = " ";
+            int x = getXforCenteredText(text);
+            int y = j.tileSize * 3;
 
-        //MENU
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 25));
+            g2.setColor(Color.RED);
+            g2.drawString(text, x, y);
 
-        text = "PLAY";
-        x = getXforCenteredText(text);
-        y += j.tileSize *3;
-        g2.drawString(text, x, y);
-        if (commandNum == 0) {
+            //MENU
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 25));
+
+            text = "PLAY";
+            x = getXforCenteredText(text);
+            y += j.tileSize *3;
+            g2.drawString(text, x, y);
+            if (comandNum == 0) {
             g2.drawString(">", x-j.tileSize, y);
         }
 
-        text = "CREDITS";
-        x = getXforCenteredText(text);
-        y += j.tileSize;
-        g2.drawString(text, x, y);
-        if (commandNum == 1) {
+            text = "CREDITS";
+            x = getXforCenteredText(text);
+            y += j.tileSize;
+            g2.drawString(text, x, y);
+            if (comandNum == 1) {
             g2.drawString(">", x-j.tileSize, y);
         }
 
-        text = "EXIT";
-        x = getXforCenteredText(text);
-        y += j.tileSize;
-        g2.drawString(text, x, y);
-        if (commandNum == 2) {
-            g2.drawString(">", x-j.tileSize, y);
+            text = "EXIT";
+            x = getXforCenteredText(text);
+            y += j.tileSize;
+            g2.drawString(text, x, y);
+            if (comandNum == 2) {
+                g2.drawString(">", x-j.tileSize, y);
+            }
+        
+        }else if(titleScreenState == 1) {
+            
+            //SELECAO DE PERSONAGEM
+            g2.setColor(Color.RED);
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 30));
+
+            String text = "SELECIONE SEU PERSONAGEM";
+            int x = getXforCenteredText(text);
+            int y = j.tileSize * 2;
+            g2.drawString(text, x, y);
+
+            text = "OSVALDO PAI";
+            x = getXforCenteredText(text);
+            y = j.tileSize * 4;
+            g2.drawString(text, x, y);
+            if(comandNum == 0){
+                g2.drawString(">", x-j.tileSize, y);
+            }
+
+            text = "OSVALDO JR";
+            x = getXforCenteredText(text);
+            y = j.tileSize * 5;
+            g2.drawString(text, x, y);
+            if(comandNum == 1){
+                g2.drawString(">", x-j.tileSize, y);
+            }
+
+            text = "OSVALDO VALDO";
+            x = getXforCenteredText(text);
+            y = j.tileSize * 6;
+            g2.drawString(text, x, y);
+            if(comandNum == 2){
+                g2.drawString(">", x-j.tileSize, y);
+            }
+
+            text = "BACK";
+            x = getXforCenteredText(text);
+            y = j.tileSize * 8;
+            g2.drawString(text, x, y);
+            if(comandNum == 3){
+                g2.drawString(">", x-j.tileSize, y);
+            }
+
         }
 
         
+ 
     }
     public void drawPauseScreen() {
 
