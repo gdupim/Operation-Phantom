@@ -33,6 +33,7 @@ public class UI {
     public double playTime = 0;
     DecimalFormat dFormat = new DecimalFormat("#0.00");
     public String  currentDialogue = "";
+    public int commandNum = 0;
 
     public UI(Janela j) {
         this.j = j;
@@ -163,6 +164,42 @@ public class UI {
             g2.drawImage(backgroundTitleImage, 0, 0, j.screenWidth, j.screenHeight, null);
         }
 
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50));
+        String text = " ";
+        int x = getXforCenteredText(text);
+        int y = j.tileSize * 3;
+
+        g2.setColor(Color.RED);
+        g2.drawString(text, x, y);
+
+        //MENU
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 25));
+
+        text = "PLAY";
+        x = getXforCenteredText(text);
+        y += j.tileSize *3;
+        g2.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2.drawString(">", x-j.tileSize, y);
+        }
+
+        text = "CREDITS";
+        x = getXforCenteredText(text);
+        y += j.tileSize;
+        g2.drawString(text, x, y);
+        if (commandNum == 1) {
+            g2.drawString(">", x-j.tileSize, y);
+        }
+
+        text = "EXIT";
+        x = getXforCenteredText(text);
+        y += j.tileSize;
+        g2.drawString(text, x, y);
+        if (commandNum == 2) {
+            g2.drawString(">", x-j.tileSize, y);
+        }
+
+        
     }
     public void drawPauseScreen() {
 
