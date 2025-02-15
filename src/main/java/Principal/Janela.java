@@ -61,7 +61,8 @@ public class Janela extends JPanel implements Runnable {
     public final int playState = 1;	
     public final int pauseState = 2;
     public final int dialogueState = 3;
-    
+    public int selectedCharacter = 0;
+
     // construtor
     public Janela() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -73,9 +74,20 @@ public class Janela extends JPanel implements Runnable {
     }
     
     public void setupGame() {
-        player[0] = new CobradeAluminio(this, keyH);
-        player[1] = new DuroDuro(this, keyH);
-        player[2] = new Tempestade(this, keyH);
+        switch (selectedCharacter) {
+            case 0:
+            player[0] = new CobradeAluminio(this, keyH);
+                break;
+
+            case 1:
+            player[1] = new DuroDuro(this, keyH);
+                break;
+
+            case 2:
+            player[2] = new Tempestade(this, keyH);
+                break;
+        }
+       
         aSetter.setItem();
         aSetter.setNPC();
         aSetter.setInimigo();

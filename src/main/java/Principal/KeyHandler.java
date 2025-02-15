@@ -28,32 +28,73 @@ public class KeyHandler implements KeyListener {
       
         // MENU
         if(j.gameState == j.titleState){
+
+            if(j.ui.titleScreenState == 0){
+                
+                if (code == KeyEvent.VK_W) {
+                    j.ui.comandNum--;
+                    if(j.ui.comandNum < 0){
+                        j.ui.comandNum = 2;
+                    }
+                }
+    
+                if (code == KeyEvent.VK_S) {
+                    j.ui.comandNum++;
+                    if(j.ui.comandNum > 2){
+                        j.ui.comandNum = 0;
+                    }
+                }
+    
+                if (code == KeyEvent.VK_ENTER){
+                    if(j.ui.comandNum == 0){
+                        j.ui.titleScreenState = 1;
+                    }
+                    else if(j.ui.comandNum == 1){
+                        j.gameState = j.playState; // vai ser os creditos
+                    }
+                    else if(j.ui.comandNum == 2){ //sai, assim eu espero.
+                        System.exit(0);
+                    }
+                }  
+            }else if (j.ui.titleScreenState == 1){
+                
+                    if (code == KeyEvent.VK_W) {
+                    j.ui.comandNum--;
+                    if(j.ui.comandNum < 0){
+                        j.ui.comandNum = 3;
+                    }
+                }
+    
+                if (code == KeyEvent.VK_S) {
+                    j.ui.comandNum++;
+                    if(j.ui.comandNum > 3){
+                        j.ui.comandNum = 0;
+                    }
+                }
+    
+                if (code == KeyEvent.VK_ENTER){
+                    if(j.ui.comandNum == 0){
+                        j.selectedCharacter = 0;
+                        j.setupGame();
+                        j.gameState = j.playState;
+                    }
+                    else if(j.ui.comandNum == 1){
+                        j.selectedCharacter = 1;
+                        j.setupGame();
+                        j.gameState = j.playState;
+                    }
+                    else if(j.ui.comandNum == 2){
+                        j.selectedCharacter = 2;
+                        j.setupGame();
+                        j.gameState = j.playState;
+                    }
+                    else if(j.ui.comandNum == 3){
+                        //ovo
+                        j.ui.titleScreenState = 0;	
+                }  
+            }
             
-            if (code == KeyEvent.VK_W) {
-                j.ui.commandNum--;
-                if(j.ui.commandNum < 0){
-                    j.ui.commandNum = 2;
-                }
-            }
-
-            if (code == KeyEvent.VK_S) {
-                j.ui.commandNum++;
-                if(j.ui.commandNum > 2){
-                    j.ui.commandNum = 0;
-                }
-            }
-
-            if (code == KeyEvent.VK_ENTER){
-                if(j.ui.commandNum == 0){
-                    j.gameState = j.playState; // vai para o substate seleção de personagem.
-                }
-                else if(j.ui.commandNum == 1){
-                    j.gameState = j.playState; // vai ser os creditos
-                }
-                else if(j.ui.commandNum == 2){ //sai, assim eu espero.
-                    System.exit(0);
-                }
-            }
+            
         }
       
         // Play State
@@ -94,7 +135,7 @@ public class KeyHandler implements KeyListener {
                 j.gameState = j.playState;
             }
          }
-    
+        }
 }
 
     @Override
