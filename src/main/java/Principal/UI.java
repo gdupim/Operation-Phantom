@@ -25,7 +25,7 @@ public class UI {
     Janela j;
     Graphics2D g2;
     Font retroGaming;
-    BufferedImage peDeCabraImage, vida_cheia, vida_cheia_dano, vida_2, vida_2_dano, vida_1, vida_1_dano;
+    BufferedImage peDeCabraImage, vida_cheia, vida_cheia_dano, vida_2, vida_2_dano, vida_1, vida_1_dano, vida_vazia;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
@@ -64,6 +64,7 @@ public class UI {
         vida_2_dano = vida.image4;
         vida_1 = vida.image5;
         vida_1_dano = vida.image6;
+        vida_vazia = vida.image7;
     
 
     }
@@ -155,6 +156,9 @@ public class UI {
         }
         else if(j.player[j.playerIndex].life == 1){
             g2.drawImage(vida_1, x, y, j.tileSize, j.tileSize, null);
+        }
+        else if(j.player[j.playerIndex].life == 0){
+            g2.drawImage(vida_vazia, x, y, j.tileSize, j.tileSize, null);
         }
     }
 

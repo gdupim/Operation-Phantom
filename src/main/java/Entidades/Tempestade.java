@@ -21,7 +21,7 @@ public class Tempestade extends Player {
             worldX = j.tileSize * 23;
             worldY = j.tileSize * 13;
             speed = 6;
-            direction = "down";
+
     
             maxLife = 1;
             life = maxLife;

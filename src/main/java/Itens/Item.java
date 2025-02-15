@@ -8,7 +8,7 @@ import Principal.Janela;
 import Principal.UtilityTool;
 
 public class Item {
-    public BufferedImage image, image2, image3, image4, image5, image6;
+    public BufferedImage image, image2, image3, image4, image5, image6, image7;
     public String nome;
     public boolean collision = false;
     public int worldX, worldY;

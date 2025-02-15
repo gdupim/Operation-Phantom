@@ -20,8 +20,8 @@ public class TileManager {
         tile = new Tiles[30];
         mapTileNum = new int[j.maxWorldRow][j.maxWorldCol];
 
-        getTileImage();
         loadMap("/Mapas/test_map.txt");
+        getTileImage();
     }
 
     public void getTileImage() {
@@ -38,6 +38,7 @@ public class TileManager {
         setup(9, "parede/metal/tile_vertical", true);
         setup(10, "misc/tile_box", false);
         setup(11, "misc/tile_box2", false);
+        setup(12, "Maquina_refri", true);
         
         
     }
@@ -75,12 +76,12 @@ public class TileManager {
                     String numbers[] = line.split(" ");
                     if (col < numbers.length) {
                         num = Integer.parseInt(numbers[col]);
-                        mapTileNum[row][col] = num;
+                        mapTileNum[col][row] = num;
                     } else {
                         System.err.println("Error: Not enough numbers in line for column " + col);
                     }
 
-                    mapTileNum[row][col] = num;
+                    mapTileNum[col][row] = num;
                     col++;
                 }
                 if (col == j.maxWorldCol) {
@@ -100,7 +101,7 @@ public class TileManager {
         int worldRow = 0;
 
         while (worldCol < j.maxWorldCol && worldRow < j.maxWorldRow) {
-            int tileNum = mapTileNum[worldRow][worldCol];
+            int tileNum = mapTileNum[worldCol][worldRow];
 
             int worldX = worldCol * j.tileSize;
             int worldY = worldRow * j.tileSize;

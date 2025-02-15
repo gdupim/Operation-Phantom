@@ -32,7 +32,7 @@ public class Player extends Entidade {
         screenX = j.screenWidth / 2 - j.tileSize / 2;
         screenY = j.screenHeight / 2 - j.tileSize / 2;
 
-        solidArea = new Rectangle(7, 10, 16, 8);
+        solidArea = new Rectangle(7, 10, 32, 32);
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         setDefaultValues();
@@ -114,7 +114,13 @@ public class Player extends Entidade {
             int npcIndex = j.cChecker.checkEntidade(this, j.npc);
             interactNPC(npcIndex);
 
+            // CHECK EVENT
+            j.eHandler.checkEvent();
 
+            int inimigoIndex = j.cChecker.checkEntidade(this, j.inimigo);
+            interactINI(inimigoIndex);
+
+            j.keyH.ePressed = false;
 
             // SE A COLISÃO ESTIVER DESLIGADA O PLAYER NÃO SE MOVE
             if (collisionOn == false && (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true
@@ -170,7 +176,24 @@ public class Player extends Entidade {
                         j.ui.showMessage("Pe de Cabra Adquirido!");
 
                         break;
-                }
+                    }
+                case "Café":
+                    if(keyH.ePressed == true){
+
+                        j.ui.showMessage("Bebeu café e recuperou 1 de vida!");
+                        
+                        
+                        j.playSE(1);
+                        
+                        if (life < maxLife){
+                        j.item[i] = null;
+                        life++;
+                        }
+                        else
+                        j.ui.showMessage("Vida Cheia!");
+
+                    }
+                    break;
             }
         }
 
@@ -184,6 +207,15 @@ public class Player extends Entidade {
                 //keyH.ePressed = false;
             }
         }
+    }
+
+    public void interactINI(int i){
+        if (i != 999){
+            
+        }
+
+
+
     }
     
     @Override

@@ -42,6 +42,7 @@ public class Janela extends JPanel implements Runnable {
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public KeyHandler keyH = new KeyHandler(this);
+    public EventHandler eHandler = new EventHandler(this);
     public UI ui = new UI(this);
     Thread gameThread;
 
@@ -49,7 +50,8 @@ public class Janela extends JPanel implements Runnable {
     public  Player  player[] = new Player[3];
     public Item item[] = new Item[10];
     public Entidade npc[] = new Entidade[10];
-    public int  playerIndex = 1;
+    public Entidade inimigo[] = new Entidade[10];
+    public int  playerIndex = 2;
     
     
     
@@ -76,8 +78,9 @@ public class Janela extends JPanel implements Runnable {
         player[2] = new Tempestade(this, keyH);
         aSetter.setItem();
         aSetter.setNPC();
+        aSetter.setInimigo();
         iniciarMsc(6);
-        gameState = playState;
+        gameState = titleState;
         
     }
     
@@ -125,12 +128,18 @@ public class Janela extends JPanel implements Runnable {
                     npc[i].update();
                 }
             }
-        }
+            for (int i = 0; i < inimigo.length; i++) {
+                if (inimigo[i] != null) {
+                    inimigo[i].update();
+                }
+            }
+        
         if (gameState == pauseState) {
             // pause
         }
         
     }
+}
 
     @Override
     public void paintComponent(Graphics g) {
@@ -160,6 +169,12 @@ public class Janela extends JPanel implements Runnable {
             for(int i = 0; i < npc.length; i++){
                 if(npc[i] != null){
                 npc[i].draw(g2d);
+                }
+            }
+
+            for(int i = 0; i < inimigo.length; i++){
+                if(inimigo[i] != null){
+                inimigo[i].draw(g2d);
                 }
             }
 

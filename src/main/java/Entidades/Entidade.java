@@ -27,6 +27,7 @@ public class Entidade {
     public int dialogueIndex = 0;
 
     // STATUS
+    public String nome;
     public int maxLife;
     public int life;
 
@@ -66,9 +67,9 @@ public class Entidade {
         setAction();
 
         collisionOn = false;
-        j.cChecker.checkTile(this);
         j.cChecker.checkItem(this, false);
         j.cChecker.checkPlayer(this);
+        j.cChecker.checkTile(this);
 
         // SE A COLISÃO ESTIVER DESLIGADA O PLAYER NÃO SE MOVE
         if (collisionOn == false) {
