@@ -64,6 +64,7 @@ public class Janela extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int dialogueState = 3;
     public int selectedCharacter = 0;
+    public final int creditState = 4;
 
     // construtor
     public Janela() {
@@ -170,6 +171,10 @@ public class Janela extends JPanel implements Runnable {
         if (gameState == titleState) {
             ui.draw(g2d);
 
+        }
+        //TELA DE CREDITOS
+        else if (gameState == creditState) {
+            ui.draw(g2d);
         }
 
         //OUTROS
