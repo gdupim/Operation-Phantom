@@ -31,9 +31,9 @@ public class Janela extends JPanel implements Runnable {
     // CONFIG MUNDO
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    // n sera usado:
-    // public final int worldWidth = tileSize * maxWorldCol;
-    // public final int worldHeight = tileSize * maxWorldRow;
+    
+    public final int worldWidth = tileSize * maxWorldCol;
+    public final int worldHeight = tileSize * maxWorldRow;
 
     // base do jogo
     TileManager tm = new TileManager(this);
@@ -43,6 +43,8 @@ public class Janela extends JPanel implements Runnable {
     public AssetSetter aSetter = new AssetSetter(this);
     public KeyHandler keyH = new KeyHandler(this);
     public EventHandler eHandler = new EventHandler(this);
+    public DDARayCast rc = new DDARayCast(this);
+    public DDALine dl = new DDALine();
     public UI ui = new UI(this);
     Thread gameThread;
 
@@ -74,24 +76,29 @@ public class Janela extends JPanel implements Runnable {
     }
     
     public void setupGame() {
+        
         switch (selectedCharacter) {
             case 0:
             player[0] = new CobradeAluminio(this, keyH);
-                break;
-
+            playerIndex = 0;
+            break;
+            
             case 1:
             player[1] = new DuroDuro(this, keyH);
-                break;
-
+            playerIndex = 1;
+            break;
+            
             case 2:
             player[2] = new Tempestade(this, keyH);
-                break;
+            playerIndex = 2;
+            break;
         }
-       
+        
         aSetter.setItem();
         aSetter.setNPC();
         aSetter.setInimigo();
         iniciarMsc(6);
+        pararMsc(6);
         gameState = titleState;
         
     }
@@ -187,13 +194,16 @@ public class Janela extends JPanel implements Runnable {
             for(int i = 0; i < inimigo.length; i++){
                 if(inimigo[i] != null){
                 inimigo[i].draw(g2d);
-                }
+                //rc.rayCast(inimigo[i], g2d);
             }
-
-
-            //  PLAYER[playerIndex]
-            player[playerIndex].draw(g2d);
+        }
         
+        
+        //  PLAYER[playerIndex]
+        player[playerIndex].draw(g2d);
+        
+        //dl.ddaLine(player[playerIndex].worldX, player[playerIndex].worldY, inimigo[0].worldX, inimigo[0].worldY, g2d);
+
             ui.draw(g2d);
 
             g2d.dispose();
@@ -207,6 +217,9 @@ public class Janela extends JPanel implements Runnable {
         msc.setFile(i);
         msc.play();
         msc.loop();
+    }
+    public void pararMsc(int i) {
+        msc.stop();
     }
 
     // tocar efeitos sonoros

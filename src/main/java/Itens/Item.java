@@ -3,6 +3,9 @@ package Itens;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import Principal.Janela;
 import Principal.UtilityTool;
@@ -16,6 +19,22 @@ public class Item {
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
     UtilityTool uTool = new UtilityTool();
+
+    public BufferedImage setup(String imagePath, int width, int height) {
+
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
+            image = uTool.scaleImage(image, width, height);
+
+
+        } catch (IOException e) {
+            System.err.println("Error loading image: " + e.getMessage());
+        }
+        return image;
+    }
 
     public void draw(Graphics2D g2, Janela j) {
         int screenX = worldX - j.player[j.playerIndex].worldX + j.player[j.playerIndex].screenX;

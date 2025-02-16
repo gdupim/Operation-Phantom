@@ -1,13 +1,7 @@
 package Entidades;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import Principal.Janela;
 import Principal.KeyHandler;
-import Principal.UtilityTool;
 
 public class DuroDuro extends Player {
     public DuroDuro(Janela j, KeyHandler keyH) {
@@ -15,11 +9,13 @@ public class DuroDuro extends Player {
     }
     
         public void setDefaultValues() {
-
+            
             super.setDefaultValues();
 
-            worldX = j.tileSize * 23;
-            worldY = j.tileSize * 13;
+            type = 0;
+
+            worldX = j.tileSize * 4;
+            worldY = j.tileSize * 4;
             speed = 3;
             direction = "down";
     
@@ -29,43 +25,27 @@ public class DuroDuro extends Player {
         public void getPlayerImage() {
         
         if(hasPeDeCabra >= 1){
-            up1 = setup("/Sprites/Player/drdr/cabra/dr_up_cabra_1");
-            up2 = setup("/Sprites/Player/drdr/cabra/dr_up_cabra_2");
-            down1 = setup("/Sprites/Player/drdr/cabra/dr_down_cabra_1");
-            down2 = setup("/Sprites/Player/drdr/cabra/dr_down_cabra_2");
-            left1 = setup("/Sprites/Player/drdr/cabra/dr_left_cabra_1");
-            left2 = setup("/Sprites/Player/drdr/cabra/dr_left_cabra_2");
-            right1 = setup("/Sprites/Player/drdr/cabra/dr_right_cabra_1");
-            right2 = setup("/Sprites/Player/drdr/cabra/dr_right_cabra_2");
+            up1 = setup("/Sprites/Player/drdr/cabra/dr_up_cabra_1",j.tileSize, j.tileSize);
+            up2 = setup("/Sprites/Player/drdr/cabra/dr_up_cabra_2",j.tileSize, j.tileSize);
+            down1 = setup("/Sprites/Player/drdr/cabra/dr_down_cabra_1",j.tileSize, j.tileSize);
+            down2 = setup("/Sprites/Player/drdr/cabra/dr_down_cabra_2",j.tileSize, j.tileSize);
+            left1 = setup("/Sprites/Player/drdr/cabra/dr_left_cabra_1",j.tileSize, j.tileSize);
+            left2 = setup("/Sprites/Player/drdr/cabra/dr_left_cabra_2",j.tileSize, j.tileSize);
+            right1 = setup("/Sprites/Player/drdr/cabra/dr_right_cabra_1",j.tileSize, j.tileSize);
+            right2 = setup("/Sprites/Player/drdr/cabra/dr_right_cabra_2",j.tileSize, j.tileSize);
         }
         else{
-            up1 = setup("/Sprites/Player/drdr/mov/dr_up_1");
-            up2 = setup("/Sprites/Player/drdr/mov/dr_up_2");
-            down1 = setup("/Sprites/Player/drdr/mov/dr_down_1");
-            down2 = setup("/Sprites/Player/drdr/mov/dr_down_2");
-            left1 = setup("/Sprites/Player/drdr/mov/dr_left_1");
-            left2 = setup("/Sprites/Player/drdr/mov/dr_left_2");
-            right1 = setup("/Sprites/Player/drdr/mov/dr_right_1");
-            right2 = setup("/Sprites/Player/drdr/mov/dr_right_2");
+            up1 = setup("/Sprites/Player/drdr/mov/dr_up_1",j.tileSize, j.tileSize);
+            up2 = setup("/Sprites/Player/drdr/mov/dr_up_2",j.tileSize, j.tileSize);
+            down1 = setup("/Sprites/Player/drdr/mov/dr_down_1",j.tileSize, j.tileSize);
+            down2 = setup("/Sprites/Player/drdr/mov/dr_down_2",j.tileSize, j.tileSize);
+            left1 = setup("/Sprites/Player/drdr/mov/dr_left_1",j.tileSize, j.tileSize);
+            left2 = setup("/Sprites/Player/drdr/mov/dr_left_2",j.tileSize, j.tileSize);
+            right1 = setup("/Sprites/Player/drdr/mov/dr_right_1",j.tileSize, j.tileSize);
+            right2 = setup("/Sprites/Player/drdr/mov/dr_right_2",j.tileSize, j.tileSize);
         }
     }
-    @Override
-    public BufferedImage setup(String imageName){
-
-        UtilityTool uTool = new UtilityTool();
-        BufferedImage image = null;
-
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream(imageName + ".png"));
-            image = uTool.scaleImage(image, j.tileSize, j.tileSize);
-
-
-        } catch (IOException e) {
-            System.err.println("Error loading tile image: " + e.getMessage());
-        }
-        return image;
-
-    }
+   
 
     public void interactNPC(int i) {
 

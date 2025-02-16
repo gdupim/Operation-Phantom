@@ -25,7 +25,7 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-      
+    
         // MENU
         if(j.gameState == j.titleState){
 
@@ -96,9 +96,9 @@ public class KeyHandler implements KeyListener {
             
             
         }
-      
+    }
         // Play State
-        if(j.gameState == j.playState){
+        else if(j.gameState == j.playState){
 
             if (code == KeyEvent.VK_W) {
                 upPressed = true;
@@ -118,6 +118,9 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_E) {
                 ePressed = true;
             }
+            if (code == KeyEvent.VK_ENTER) {
+                enterPressed = true; 
+            }
             if (code == KeyEvent.VK_ESCAPE) {
                     j.gameState = j.pauseState; 
                 
@@ -136,7 +139,7 @@ public class KeyHandler implements KeyListener {
             }
          }
         }
-}
+
 
     @Override
     public void keyReleased(KeyEvent e) {
