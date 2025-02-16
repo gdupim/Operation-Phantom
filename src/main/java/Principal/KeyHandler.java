@@ -50,7 +50,8 @@ public class KeyHandler implements KeyListener {
                         j.ui.titleScreenState = 1;
                     }
                     else if(j.ui.comandNum == 1){
-                        j.gameState = j.creditState; // vai ser os creditos
+                        j.ui.titleScreenState = 2;
+                         // vai ser os creditos
                     }
                     else if(j.ui.comandNum == 2){ //sai, assim eu espero.
                         System.exit(0);
@@ -98,14 +99,14 @@ public class KeyHandler implements KeyListener {
         }
         
         // Credit State
-        else if(j.gameState == j.creditState){
+        else if(j.ui.titleScreenState == 2){
             if(code == KeyEvent.VK_ENTER){
                 if(j.ui.comandNum == 1){
-                    j.gameState = j.titleState;
+                    j.ui.titleScreenState = 0;
                 }
             }
         }
-
+    }
         // Play State
         else if(j.gameState == j.playState){
 
@@ -148,7 +149,7 @@ public class KeyHandler implements KeyListener {
             }
          }
         }
-    }
+    
 
     @Override
     public void keyReleased(KeyEvent e) {
@@ -175,5 +176,4 @@ public class KeyHandler implements KeyListener {
         }
         
 }
-
 }

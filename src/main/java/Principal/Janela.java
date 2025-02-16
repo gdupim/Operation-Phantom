@@ -170,11 +170,6 @@ public class Janela extends JPanel implements Runnable {
         //TELA DE LOBBY
         if (gameState == titleState) {
             ui.draw(g2d);
-
-        }
-        //TELA DE CREDITOS
-        else if (gameState == creditState) {
-            ui.draw(g2d);
         }
 
         //OUTROS

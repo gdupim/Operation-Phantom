@@ -94,10 +94,7 @@ public class UI {
             drawTitleScreen();
         }
         
-        //CREDITOS
-        if(j.gameState == j.creditState){
-            drawCreditScreen();
-        }
+        
 
         //ESTADO DO JOGO
         if(j.gameState == j.playState){
@@ -260,6 +257,8 @@ public class UI {
             if(comandNum == 3){
                 g2.drawString(">", x-j.tileSize, y);
             }
+        } else if(titleScreenState == 2){
+            drawCreditScreen();
         }
     }
 
