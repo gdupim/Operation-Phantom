@@ -21,6 +21,7 @@ import Itens.Item;
 public class UI {
 
     BufferedImage backgroundTitleImage;
+    BufferedImage backgroundCreditImage;
 
     Janela j;
     Graphics2D g2;
@@ -52,7 +53,13 @@ public class UI {
         peDeCabraImage = peDeCabra.image;
 
         try {
-            backgroundTitleImage = ImageIO.read(new File("src/main/java/Principal/UISrc/UI_teladelogin.png"));
+            backgroundTitleImage = ImageIO.read(new File("src/main/java/Principal/UISrc/TelasTitle/novaTelaLogginOP.png"));
+        } catch (IOException e) {
+            e.printStackTrace();    
+        }
+
+        try {
+            backgroundCreditImage = ImageIO.read(new File("src/main/java/Principal/UISrc/TelasTitle/novaTelaCreditos.png"));
         } catch (IOException e) {
             e.printStackTrace();    
         }
@@ -86,7 +93,12 @@ public class UI {
         if(j.gameState == j.titleState){
             drawTitleScreen();
         }
-       
+        
+        //CREDITOS
+        if(j.gameState == j.creditState){
+            drawCreditScreen();
+        }
+
         //ESTADO DO JOGO
         if(j.gameState == j.playState){
             drawVidaPlayer();
@@ -248,12 +260,72 @@ public class UI {
             if(comandNum == 3){
                 g2.drawString(">", x-j.tileSize, y);
             }
+        }
+    }
+
+    public void drawCreditScreen() {
+
+        if (backgroundCreditImage != null) {
+            g2.drawImage(backgroundCreditImage, 0, 0, j.screenWidth, j.screenHeight, null);
+        }
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 35));
+        String text = "CREDITOS:";
+        int x = getXforCenteredText(text);
+        int y = j.tileSize * 2;
+
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x, y);
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 20));
+        String text1 = "CAIO MACEDO";
+        x = getXforCenteredText(text1);
+        y = j.tileSize * 4;
+        g2.drawString(text1, x, y);
+
+        text = "JOSE CARLOS SEBEN";
+        x = getXforCenteredText(text);
+        y = j.tileSize * 5;
+        g2.drawString(text, x, y);
+
+        text = "GABRIEL DUPIM";
+        x = getXforCenteredText(text);
+        y = j.tileSize * 6;
+        g2.drawString(text, x, y);
+
+        g2.setColor(Color.RED);
+        text = "BACK";
+        x = getXforCenteredText(text);
+        y = j.tileSize * 8;
+        g2.drawString(text, x, y);
+        if(comandNum == 1){
+        g2.drawString(">", x-j.tileSize, y);
+
+        //IMPRIMINDO OS RA'S
+        g2.setColor(Color.WHITE);
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 12));
+        String controlText1 = "RA: 2651378";
+        x = getXforCenteredText(controlText1);
+        y = (int) (j.tileSize * 4.30);
+        g2.drawString(controlText1, x, y);
+        
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 12));
+        String controlText2 = "RA: 2651130";
+        x = getXforCenteredText(controlText2);
+        y = (int) (j.tileSize * 5.30);
+        g2.drawString(controlText2, x, y);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 12));
+        String controlText3 = "RA: 2651130";
+        x = getXforCenteredText(controlText3);
+        y = (int) (j.tileSize * 6.30);
+        g2.drawString(controlText3, x, y);
 
         }
 
         
- 
     }
+
     public void drawPauseScreen() {
 
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50));
