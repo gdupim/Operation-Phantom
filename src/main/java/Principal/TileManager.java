@@ -23,7 +23,6 @@ public class TileManager {
     }
 
     public void getTileImage() {
-
         setup(0, "misc/grama_grid", false);
         setup(1, "chao/tile_aslfalto", false);
         setup(2, "chao/tile_azulejo", false);
@@ -37,11 +36,9 @@ public class TileManager {
         setup(10, "misc/tile_box", false);
         setup(11, "misc/tile_box2", false);
         setup(12, "Maquina_refri", true);
-
     }
 
     public void setup(int index, String imageName, boolean collision) {
-
         UtilityTool uTool = new UtilityTool();
 
         try {

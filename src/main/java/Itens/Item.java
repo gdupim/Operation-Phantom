@@ -15,7 +15,7 @@ public class Item {
     public String nome;
     public boolean collision = false;
     public int worldX, worldY;
-    public Rectangle solidArea = new Rectangle(0,0,64,64);
+    public Rectangle solidArea = new Rectangle(0, 0, 64, 64);
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
     UtilityTool uTool = new UtilityTool();
@@ -28,7 +28,6 @@ public class Item {
         try {
             image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
             image = uTool.scaleImage(image, width, height);
-
 
         } catch (IOException e) {
             System.err.println("Error loading image: " + e.getMessage());

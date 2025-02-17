@@ -20,7 +20,6 @@ public class CON_cafe extends Item {
                 worldY + j.tileSize > j.player[j.playerIndex].worldY - j.player[j.playerIndex].screenY &&
                 worldY - j.tileSize < j.player[j.playerIndex].worldY + j.player[j.playerIndex].screenY)
             g2.drawImage(image, screenX, screenY, 24, 24, null);
-        }
-        
-}
+    }
 
+}

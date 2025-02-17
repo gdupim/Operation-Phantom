@@ -4,13 +4,15 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import Principal.Janela;
 import Principal.KeyHandler;
 import Principal.UtilityTool;
 
 public class Player extends Entidade {
-
     KeyHandler keyH = new KeyHandler(j);
 
     public final int screenX;
@@ -50,7 +52,6 @@ public class Player extends Entidade {
     }
 
     public void getPlayerImage() {
-
         up1 = setup("/Sprites/Player/snake/mov/snake_up_1");
         up2 = setup("/Sprites/Player/snake/mov/snake_up_2");
         down1 = setup("/Sprites/Player/snake/mov/snake_down_1");
@@ -59,6 +60,7 @@ public class Player extends Entidade {
         left2 = setup("/Sprites/Player/snake/mov/snake_left_2");
         right1 = setup("/Sprites/Player/snake/mov/snake_right_1");
         right2 = setup("/Sprites/Player/snake/mov/snake_right_2");
+
         if (hasPeDeCabra >= 1) {
             up1 = setup("/Sprites/Player/snake/cabra/snake_up_cabra_1");
             up2 = setup("/Sprites/Player/snake/cabra/snake_up_cabra_2");
@@ -81,7 +83,6 @@ public class Player extends Entidade {
     }
 
     public void getPlayerAttackImage() {
-
         // attackUp1 =
         // setup("/Sprites/Player/snake/attack/snake_up_attack_1",j.tileSize,
         // j.tileSize);
@@ -109,9 +110,7 @@ public class Player extends Entidade {
 
     }
 
-    @Override
     public BufferedImage setup(String imageName) {
-
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
 
@@ -188,6 +187,7 @@ public class Player extends Entidade {
             }
 
             spriteCounter++;
+
             if (spriteCounter > 10) {
                 if (spriteNum == 1) {
                     spriteNum = 2;
@@ -197,6 +197,7 @@ public class Player extends Entidade {
                 spriteCounter = 0;
             }
         }
+
         if (invicible == true) {
             invicibleCounter++;
             if (invicibleCounter > 60) {
@@ -204,16 +205,15 @@ public class Player extends Entidade {
                 invicibleCounter = 0;
             }
         }
-
     }
 
     public void attacking() {
-
         spriteCounter++;
 
         if (spriteCounter <= 5) {
             spriteNum = 1;
         }
+
         if (spriteCounter > 5 && spriteCounter <= 25) {
             spriteNum = 2;
 
@@ -236,6 +236,7 @@ public class Player extends Entidade {
                     worldX += attackArea.width;
                     break;
             }
+
             solidArea.width = attackArea.width;
             solidArea.height = attackArea.height;
 
@@ -246,12 +247,12 @@ public class Player extends Entidade {
             solidArea.width = solidAreaWidth;
             solidArea.height = solidAreaHeight;
         }
+
         if (spriteCounter > 25) {
             spriteNum = 1;
             spriteCounter = 0;
             attacking = false;
         }
-
     }
 
     public void pickUpItem(int i) {
@@ -267,38 +268,31 @@ public class Player extends Entidade {
                         break;
                     }
                     j.item[i] = null;
+                    // audio
+                    j.playSE(1);
 
-                        // audio
-                        j.playSE(1);
+                    j.ui.showMessage("Pe de Cabra Adquirido!");
 
-                        j.ui.showMessage("Pe de Cabra Adquirido!");
+                    break;
 
-                        break;
-                    }
                 case "Café":
-                    if(keyH.ePressed == true){
-
+                    if (keyH.ePressed == true) {
                         j.ui.showMessage("Bebeu café e recuperou 1 de vida!");
 
-
-
-                        if (life < maxLife){
+                        if (life < maxLife) {
                             j.item[i] = null;
                             life++;
                             j.playSE(1);
-                        }
-                        else
-                        j.ui.showMessage("Vida Cheia!");
+                        } else
+                            j.ui.showMessage("Vida Cheia!");
 
                     }
                     break;
             }
         }
-
     }
 
     public void interactNPC(int i) {
-
         if (i != 999) {
             if (keyH.ePressed) {
                 j.gameState = j.dialogueState;
@@ -326,9 +320,7 @@ public class Player extends Entidade {
                 default:
                     throw new AssertionError();
             }
-
         }
-
     }
 
     public void damageINI(int i) {
@@ -338,7 +330,6 @@ public class Player extends Entidade {
             if (j.inimigo[i].life <= 0) {
                 j.inimigo[i] = null;
             }
-
         }
     }
 

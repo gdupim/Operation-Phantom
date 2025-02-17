@@ -5,8 +5,7 @@ import java.util.Random;
 import Principal.Janela;
 
 public class INI_sold_cacetete extends Entidade {
-
-    Janela j;  
+    Janela j;
 
     public INI_sold_cacetete(Janela j) {
         super(j);
@@ -23,37 +22,36 @@ public class INI_sold_cacetete extends Entidade {
         getImage();
         getAttackImage();
 
-    }   
-    public void getImage() { 
-        up1 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_1",j.tileSize, j.tileSize);
-        up2 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_2",j.tileSize, j.tileSize);
-        down1 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_1",j.tileSize, j.tileSize);
-        down2 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_2",j.tileSize, j.tileSize);
-        left1 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_1",j.tileSize, j.tileSize);
-        left2 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_2",j.tileSize, j.tileSize);
-        right1 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_1",j.tileSize, j.tileSize);
-        right2 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_2",j.tileSize, j.tileSize);
-        
-
     }
-    public void getAttackImage() { 
-        attackUp1 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_atk",j.tileSize, j.tileSize);
-        attackUp2 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_atk",j.tileSize, j.tileSize);
-        attackDown1 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_atk",j.tileSize, j.tileSize);
-        attackDown2 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_atk",j.tileSize, j.tileSize);
-        attackLeft1 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_atk",j.tileSize, j.tileSize);
-        attackLeft2 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_atk",j.tileSize, j.tileSize);
-        attackRight1 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_atk",j.tileSize, j.tileSize);
-        attackRight2 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_atk",j.tileSize, j.tileSize);
-        
-}
-        public void setAction() {
 
+    public void getImage() {
+        up1 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_1", j.tileSize, j.tileSize);
+        up2 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_2", j.tileSize, j.tileSize);
+        down1 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_1", j.tileSize, j.tileSize);
+        down2 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_2", j.tileSize, j.tileSize);
+        left1 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_1", j.tileSize, j.tileSize);
+        left2 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_2", j.tileSize, j.tileSize);
+        right1 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_1", j.tileSize, j.tileSize);
+        right2 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_2", j.tileSize, j.tileSize);
+    }
+
+    public void getAttackImage() {
+        attackUp1 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_atk", j.tileSize, j.tileSize);
+        attackUp2 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_atk", j.tileSize, j.tileSize);
+        attackDown1 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_atk", j.tileSize, j.tileSize);
+        attackDown2 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_atk", j.tileSize, j.tileSize);
+        attackLeft1 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_atk", j.tileSize, j.tileSize);
+        attackLeft2 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_atk", j.tileSize, j.tileSize);
+        attackRight1 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_atk", j.tileSize, j.tileSize);
+        attackRight2 = setup("/Sprites/Inimigos/sold_melee/sold_cacete_atk", j.tileSize, j.tileSize);
+    }
+
+    public void setAction() {
         actionLockCounter++;
 
-        if (actionLockCounter == 120){
+        if (actionLockCounter == 120) {
             Random random = new Random();
-            int i = random.nextInt(100)+1;
+            int i = random.nextInt(100) + 1;
 
             if (i <= 25) {
                 direction = "up";
@@ -68,8 +66,6 @@ public class INI_sold_cacetete extends Entidade {
                 direction = "right";
             }
             actionLockCounter = 0;
-         }
-        
+        }
     }
-    
 }

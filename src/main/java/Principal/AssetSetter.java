@@ -1,7 +1,5 @@
 package Principal;
 
-
-
 public class AssetSetter {
     Janela j;
 
@@ -22,15 +20,15 @@ public class AssetSetter {
         j.item[2].worldX = 5 * j.tileSize;
         j.item[2].worldY = 2 * j.tileSize;
     }
-    public void setNPC() {
 
+    public void setNPC() {
         j.npc[0] = new Entidades.NPC_temp(j);
         j.npc[0].worldX = 5 * j.tileSize;
         j.npc[0].worldY = 5 * j.tileSize;
 
     }
-    public void setInimigo() {
 
+    public void setInimigo() {
         j.inimigo[0] = new Entidades.INI_sold_cacetete(j);
         j.inimigo[0].worldX = 5 * j.tileSize;
         j.inimigo[0].worldY = 6 * j.tileSize;
@@ -38,6 +36,6 @@ public class AssetSetter {
         j.inimigo[1] = new Entidades.INI_sold_cacetete(j);
         j.inimigo[1].worldX = 5 * j.tileSize;
         j.inimigo[1].worldY = 7 * j.tileSize;
-        
+
     }
 }

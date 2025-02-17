@@ -65,14 +65,12 @@ public class CollisionChecker {
                 break;
         }
     }
-    public int checkItem(Entidade entidade, boolean player){
 
+    public int checkItem(Entidade entidade, boolean player) {
         int index = 999;
 
-        for (int i = 0; i < j.item.length; i++){
-
-            if(j.item[i] != null){
-
+        for (int i = 0; i < j.item.length; i++) {
+            if (j.item[i] != null) {
                 // area solida entidade
                 entidade.solidArea.x = entidade.worldX + entidade.solidAreaDefaultX;
                 entidade.solidArea.y = entidade.worldY + entidade.solidAreaDefaultY;
@@ -80,31 +78,31 @@ public class CollisionChecker {
                 j.item[i].solidArea.x = j.item[i].worldX + j.item[i].solidAreaDefaultX;
                 j.item[i].solidArea.y = j.item[i].worldY + j.item[i].solidAreaDefaultY;
 
-                switch(entidade.direction){
+                switch (entidade.direction) {
                     case "up":
                         entidade.solidArea.y -= entidade.speed;
-                        
+
                         break;
                     case "down":
                         entidade.solidArea.y += entidade.speed;
-                        
+
                         break;
                     case "left":
                         entidade.solidArea.x -= entidade.speed;
                         break;
                     case "right":
                         entidade.solidArea.x += entidade.speed;
-                        
+
                         break;
                 }
-                if(entidade.solidArea.intersects(j.item[i].solidArea)){
-                    if(j.item[i].collision == true){
+                if (entidade.solidArea.intersects(j.item[i].solidArea)) {
+                    if (j.item[i].collision == true) {
                         entidade.collisionOn = true;
                     }
-                    if(player == true){
-                    
+                    if (player == true) {
+
                         index = i;
-                    
+
                     }
                 }
                 entidade.solidArea.x = entidade.solidAreaDefaultX;
@@ -116,15 +114,13 @@ public class CollisionChecker {
 
         return index;
     }
+
     // NPC ou MONSTRO
-    public int checkEntidade(Entidade entidade, Entidade[] target){
-        
+    public int checkEntidade(Entidade entidade, Entidade[] target) {
         int index = 999;
 
-        for (int i = 0; i < target.length; i++){
-
-            if(target[i] != null){
-
+        for (int i = 0; i < target.length; i++) {
+            if (target[i] != null) {
                 // area solida entidade
                 entidade.solidArea.x = entidade.worldX + entidade.solidAreaDefaultX;
                 entidade.solidArea.y = entidade.worldY + entidade.solidAreaDefaultY;
@@ -132,33 +128,32 @@ public class CollisionChecker {
                 target[i].solidArea.x = target[i].worldX + target[i].solidAreaDefaultX;
                 target[i].solidArea.y = target[i].worldY + target[i].solidAreaDefaultY;
 
-                switch(entidade.direction){
+                switch (entidade.direction) {
                     case "up":
                         entidade.solidArea.y -= entidade.speed;
-                        
-                    
+
                         break;
                     case "down":
                         entidade.solidArea.y += entidade.speed;
-                        
+
                         break;
                     case "left":
                         entidade.solidArea.x -= entidade.speed;
-                        
+
                         break;
                     case "right":
                         entidade.solidArea.x += entidade.speed;
-                        
+
                         break;
                 }
-                if(entidade.solidArea.intersects(target[i].solidArea)){
-                    if(target[i] != entidade){
+                if (entidade.solidArea.intersects(target[i].solidArea)) {
+                    if (target[i] != entidade) {
                         entidade.collisionOn = true;
                         index = i;
                     }
                 }
 
-                entidade.solidArea.x = entidade.solidAreaDefaultX;  
+                entidade.solidArea.x = entidade.solidAreaDefaultX;
                 entidade.solidArea.y = entidade.solidAreaDefaultY;
                 target[i].solidArea.x = target[i].solidAreaDefaultX;
                 target[i].solidArea.y = target[i].solidAreaDefaultY;
@@ -166,32 +161,33 @@ public class CollisionChecker {
         }
 
         return index;
-        }
+    }
 
-        public boolean checkPlayer(Entidade entidade) {
-
+    public boolean checkPlayer(Entidade entidade) {
         boolean contactPlayer = false;
 
         // area solida entidade
         entidade.solidArea.x = entidade.worldX + entidade.solidAreaDefaultX;
         entidade.solidArea.y = entidade.worldY + entidade.solidAreaDefaultY;
         // area solida item
-        j.player[j.playerIndex].solidArea.x = j.player[j.playerIndex].worldX + j.player[j.playerIndex].solidAreaDefaultX;
-        j.player[j.playerIndex].solidArea.y = j.player[j.playerIndex].worldY + j.player[j.playerIndex].solidAreaDefaultY;
+        j.player[j.playerIndex].solidArea.x = j.player[j.playerIndex].worldX
+                + j.player[j.playerIndex].solidAreaDefaultX;
+        j.player[j.playerIndex].solidArea.y = j.player[j.playerIndex].worldY
+                + j.player[j.playerIndex].solidAreaDefaultY;
 
         switch (entidade.direction) {
             case "up":
-            entidade.solidArea.y -= entidade.speed;
-            break;
+                entidade.solidArea.y -= entidade.speed;
+                break;
             case "down":
-            entidade.solidArea.y += entidade.speed;
-            break;
+                entidade.solidArea.y += entidade.speed;
+                break;
             case "left":
-            entidade.solidArea.x -= entidade.speed;
-            break;
+                entidade.solidArea.x -= entidade.speed;
+                break;
             case "right":
-            entidade.solidArea.x += entidade.speed;
-            break;
+                entidade.solidArea.x += entidade.speed;
+                break;
         }
 
         if (entidade.solidArea.intersects(j.player[j.playerIndex].solidArea)) {
@@ -203,8 +199,7 @@ public class CollisionChecker {
         entidade.solidArea.y = entidade.solidAreaDefaultY;
         j.player[j.playerIndex].solidArea.x = j.player[j.playerIndex].solidAreaDefaultX;
         j.player[j.playerIndex].solidArea.y = j.player[j.playerIndex].solidAreaDefaultY;
-        
-        return contactPlayer;
 
-        }
+        return contactPlayer;
     }
+}
