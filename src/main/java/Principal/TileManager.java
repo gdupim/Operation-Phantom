@@ -18,13 +18,25 @@ public class TileManager {
         tile = new Tiles[30];
         mapTileNum = new int[j.maxWorldRow][j.maxWorldCol];
 
+        loadMap("/Mapas/test_map.txt");
         getTileImage();
-        loadMap("/Mapas/grid_map.txt");
     }
 
     public void getTileImage() {
 
-        setup(0, "grama_grid", false);
+        setup(0, "misc/grama_grid", false);
+        setup(1, "chao/tile_aslfalto", false);
+        setup(2, "chao/tile_azulejo", false);
+        setup(3, "chao/tile_chao_metal", false);
+        setup(4, "parede/metal/tile_canto_inf_dir", true);
+        setup(5, "parede/metal/tile_canto_inf_esq", true);
+        setup(6, "parede/metal/tile_canto_sup_dir", true);
+        setup(7, "parede/metal/tile_canto_sup_esq", true);
+        setup(8, "parede/metal/tile_lateral", true);
+        setup(9, "parede/metal/tile_vertical", true);
+        setup(10, "misc/tile_box", false);
+        setup(11, "misc/tile_box2", false);
+        setup(12, "Maquina_refri", true);
 
     }
 
@@ -34,44 +46,14 @@ public class TileManager {
 
         try {
             tile[index] = new Tiles();
-
-            // imagem teste
             tile[index].image = ImageIO
                     .read(getClass().getResourceAsStream("/Principal/tilesSrc/" + imageName + ".png"));
             tile[index].image = uTool.scaleImage(tile[index].image, j.tileSize, j.tileSize);
             tile[index].collision = collision;
 
-            // // tiles de chao
-            // tile[1].image =
-            // ImageIO.read(getClass().getResourceAsStream("/Sprites/tiles/chao/tile_asfalto.png"));
-            // tile[2].image =
-            // ImageIO.read(getClass().getResourceAsStream("/Sprites/tiles/chao/tile_azulejo.png"));
-            // tile[3].image =
-            // ImageIO.read(getClass().getResourceAsStream("/Sprites/tiles/chao/tile_chao_metal.png"));
-
-            // // tiles parede
-            // tile[4].image = ImageIO
-            // .read(getClass().getResourceAsStream("/Sprites/tiles/paredes/metal/tile_canto_inf_dir.png"));
-            // tile[5].image = ImageIO
-            // .read(getClass().getResourceAsStream("/Sprites/tiles/paredes/metal/tile_canto_inf_esq.png"));
-            // tile[6].image = ImageIO
-            // .read(getClass().getResourceAsStream("/Sprites/tiles/paredes/metal/tile_canto_sup_dir.png"));
-            // tile[7].image = ImageIO
-            // .read(getClass().getResourceAsStream("/Sprites/tiles/paredes/metal/tile_canto_sup_esq.png"));
-            // tile[8].image = ImageIO
-            // .read(getClass().getResourceAsStream("/Sprites/tiles/paredes/metal/tile_lateral.png"));
-            // tile[9].image = ImageIO
-            // .read(getClass().getResourceAsStream("/Sprites/tiles/paredes/metal/tile_vertical.png"));
-
-            // // tiles misc
-            // tile[10].image =
-            // ImageIO.read(getClass().getResourceAsStream("/Sprites/tiles/misc/tile_box.png"));
-            // tile[11].image =
-            // ImageIO.read(getClass().getResourceAsStream("/Sprites/tiles/misc/tile_box2.png"));
         } catch (IOException e) {
             System.err.println("Error loading tile image: " + e.getMessage());
         }
-
     }
 
     public void loadMap(String path) {
@@ -90,12 +72,12 @@ public class TileManager {
                     String numbers[] = line.split(" ");
                     if (col < numbers.length) {
                         num = Integer.parseInt(numbers[col]);
-                        mapTileNum[row][col] = num;
+                        mapTileNum[col][row] = num;
                     } else {
                         System.err.println("Error: Not enough numbers in line for column " + col);
                     }
 
-                    mapTileNum[row][col] = num;
+                    mapTileNum[col][row] = num;
                     col++;
                 }
                 if (col == j.maxWorldCol) {
@@ -115,17 +97,17 @@ public class TileManager {
         int worldRow = 0;
 
         while (worldCol < j.maxWorldCol && worldRow < j.maxWorldRow) {
-            int tileNum = mapTileNum[worldRow][worldCol];
+            int tileNum = mapTileNum[worldCol][worldRow];
 
             int worldX = worldCol * j.tileSize;
             int worldY = worldRow * j.tileSize;
-            int screenX = worldX - j.player.worldX + j.player.screenX;
-            int screenY = worldY - j.player.worldY + j.player.screenY;
+            int screenX = worldX - j.player[j.playerIndex].worldX + j.player[j.playerIndex].screenX;
+            int screenY = worldY - j.player[j.playerIndex].worldY + j.player[j.playerIndex].screenY;
 
-            if (worldX + j.tileSize > j.player.worldX - j.player.screenX &&
-                    worldX - j.tileSize < j.player.worldX + j.player.screenX &&
-                    worldY + j.tileSize > j.player.worldY - j.player.screenY &&
-                    worldY - j.tileSize < j.player.worldY + j.player.screenY)
+            if (worldX + j.tileSize > j.player[j.playerIndex].worldX - j.player[j.playerIndex].screenX &&
+                    worldX - j.tileSize < j.player[j.playerIndex].worldX + j.player[j.playerIndex].screenX &&
+                    worldY + j.tileSize > j.player[j.playerIndex].worldY - j.player[j.playerIndex].screenY &&
+                    worldY - j.tileSize < j.player[j.playerIndex].worldY + j.player[j.playerIndex].screenY)
                 g2.drawImage(tile[tileNum].image, screenX, screenY, null);
 
             worldCol++;

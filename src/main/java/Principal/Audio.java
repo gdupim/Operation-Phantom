@@ -21,6 +21,12 @@ public class Audio {
         soundURL[4] = getClass().getResource("/Audio/sons/personagens/passo3.wav");
         soundURL[5] = getClass().getResource("/Audio/sons/personagens/passo4.wav");
         soundURL[6] = getClass().getResource("/Audio/msc/ambient.wav");
+        soundURL[7] = getClass().getResource("/Audio/sons/personagens/drdrHit.wav");
+        soundURL[8] = getClass().getResource("/Audio/sons/personagens/snakeHit.wav");
+        soundURL[9] = getClass().getResource("/Audio/sons/personagens/drdrHit.wav");
+        soundURL[10] = getClass().getResource("/Audio/sons/personagens/tempHit.wav");
+        soundURL[11] = getClass().getResource("/Audio/sons/personagens/abrirInv.wav");
+        soundURL[12] = getClass().getResource("/Audio/sons/personagens/fecharInv.wav");
     }
 
     // inciar o arquivo de audio
