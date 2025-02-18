@@ -14,6 +14,8 @@ public class OpPhantom {
 
         frame.pack();
 
+        // esse comentario é só pro github reconhecer q estou fazendo um commit pq ele é
+        // tonto e n me deixa fazer as coisas - gabriel
         // frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Maximiza a janela
         // frame.setUndecorated(true); // Remove bordas da janela
         frame.setVisible(true);
