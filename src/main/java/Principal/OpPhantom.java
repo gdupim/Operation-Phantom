@@ -1,9 +1,17 @@
 package Principal;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.swing.JFrame;
 
 public class OpPhantom {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        // SQL
+        Connection conn = ConexaoJDBC.getConexao();
+
+        // Janela do jogo
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -22,5 +30,13 @@ public class OpPhantom {
 
         janela.setupGame();
         janela.iniciarGameThread();
+
+        // MYSQL
+        UI ui = new UI(janela);
+        double tempo = ui.playTime;
+        Statement stmt = conn.createStatement();
+        stmt.executeQuery("INSERT INTO tempoJogo VALUES (" + tempo + ");");
+
+        conn.close();
     }
 }
